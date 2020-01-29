@@ -1,10 +1,8 @@
 package com.aioisisi.lab2.entity;
 
 import lombok.Data;
-import org.graalvm.compiler.lir.alloc.lsra.LinearScan;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
@@ -18,23 +16,32 @@ public class Route {
     private Integer id;
 
     @Column
-    @ManyToOne (fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Address startAddress;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Address departureAddress;
 
     @Column
-    @ManyToOne (fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Address endAddress;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Address arrivalAddress;
 
     @Column
-    private LocalDateTime departureTime;
+    private LocalDateTime departureDateTime;
 
     @Column
-    private LocalDateTime arrivalTime;
+    private LocalDateTime arrivalDateTime;
 
     @Column
-    @ManyToOne (fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Transport transport;
 
-    @OneToMany (cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<User> users;
+
+    @Transient
+    private LocalTime duration;
+
+    public LocalTime getDuration() {
+        //TODO: wtf, why it's red
+//        return new LocalTime.ofSecondOfDay(arrivalDateTime.getSecond() - departureDateTime.getSecond());
+        return LocalTime.now();
+    }
 }

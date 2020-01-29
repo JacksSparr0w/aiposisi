@@ -21,4 +21,7 @@ public class Transport {
 
     @Column
     private int capacity;
+
+    @Column
+    private String name;
 }
