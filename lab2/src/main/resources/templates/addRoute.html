@@ -19,7 +19,57 @@
 
     <form method="post" th:object="${route}">
         <div>
-
+            <div>
+                <div class="container p-2">
+                    <label>Выберите транспорт</label>
+                    <select class="form-control" th:field="*{transport.id}">
+                        <option th:each="transport : ${transportList}"
+                                th:text="${transport.name}, ${transport.type.description}, ${transport.capacity}"
+                                th:value="${transport.id}">Тип
+                        </option>
+                    </select>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                    <label>Место/Дата посадки</label>
+                    <div class="container p-2">
+                        <label for="countryD">Страна</label>
+                        <input type="text" th:field="*{departureAddress.country}" th:value="*{departureAddress.country}" id="countryD"/>
+                    </div>
+                    <div class="container p-2">
+                        <label for="cityD">Город</label>
+                        <input type="text" th:field="*{departureAddress.city}" th:value="*{departureAddress.city}" id="cityD"/>
+                    </div>
+                    <div class="container p-2">
+                        <label for="streetD">Улица</label>
+                        <input type="text" th:field="*{departureAddress.street}" th:value="*{departureAddress.street}" id="streetD"/>
+                    </div>
+                    <div class="container p-2">
+                        <label for="numberD">Здание</label>
+                        <input type="text" th:field="*{departureAddress.number}" th:value="*{departureAddress.number}" id="numberD"/>
+                    </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <label>Место/Дата высадки</label>
+                    <div class="container p-2">
+                        <label for="countryA">Страна</label>
+                        <input type="text" th:field="*{arrivalAddress.country}" th:value="*{arrivalAddress.country}" id="countryA"/>
+                    </div>
+                    <div class="container p-2">
+                        <label for="cityA">Город</label>
+                        <input type="text" th:field="*{arrivalAddress.city}" th:value="*{arrivalAddress.city}" id="cityA"/>
+                    </div>
+                    <div class="container p-2">
+                        <label for="streetA">Улица</label>
+                        <input type="text" th:field="*{arrivalAddress.street}" th:value="*{arrivalAddress.street}" id="streetA"/>
+                    </div>
+                    <div class="container p-2">
+                        <label for="numberA">Здание</label>
+                        <input type="text" th:field="*{arrivalAddress.number}" th:value="*{arrivalAddress.number}" id="numberA"/>
+                    </div>
+                </div>
+            </div>
         </div>
         <button class="btn btn-outline-success p-2" type="submit">Сохранить</button>
     </form>
