@@ -3,10 +3,11 @@ package com.aioisisi.lab2.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
-@Table(name = "address")
+@Table
 public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,6 +24,9 @@ public class Address {
 
     @Column
     private int number;
+
+    @OneToMany(mappedBy = "")
+    private List<Route> routes;
 
     @Override
     public String toString() {

@@ -9,18 +9,16 @@ import java.util.List;
 
 @Data
 @Entity
-@Table(name = "route")
+@Table
 public class Route {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE})
     private Address departureAddress;
 
-    @Column
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE})
     private Address arrivalAddress;
 
     @Column
@@ -29,7 +27,6 @@ public class Route {
     @Column
     private LocalDateTime arrivalDateTime;
 
-    @Column
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Transport transport;
 

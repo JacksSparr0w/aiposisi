@@ -1,6 +1,5 @@
 package com.aioisisi.lab2.controller.transport;
 
-import com.aioisisi.lab2.service.AddressService;
 import com.aioisisi.lab2.service.TransportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

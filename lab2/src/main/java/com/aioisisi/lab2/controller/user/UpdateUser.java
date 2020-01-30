@@ -1,8 +1,6 @@
 package com.aioisisi.lab2.controller.user;
 
-import com.aioisisi.lab2.entity.Address;
 import com.aioisisi.lab2.entity.User;
-import com.aioisisi.lab2.service.AddressService;
 import com.aioisisi.lab2.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

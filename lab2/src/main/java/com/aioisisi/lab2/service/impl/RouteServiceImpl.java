@@ -1,8 +1,6 @@
 package com.aioisisi.lab2.service.impl;
 
-import com.aioisisi.lab2.entity.Address;
 import com.aioisisi.lab2.entity.Route;
-import com.aioisisi.lab2.repository.AddressRepository;
 import com.aioisisi.lab2.repository.RouteRepository;
 import com.aioisisi.lab2.service.RouteService;
 import org.springframework.beans.factory.annotation.Autowired;

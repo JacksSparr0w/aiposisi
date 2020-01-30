@@ -5,7 +5,7 @@ import lombok.Data;
 import javax.persistence.*;
 
 @Entity
-@Table (name = "type")
+@Table
 @Data
 public class Type {
     @Id

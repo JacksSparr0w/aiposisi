@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Data
 @Entity
-@Table(name = "transport")
+@Table
 public class Transport {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

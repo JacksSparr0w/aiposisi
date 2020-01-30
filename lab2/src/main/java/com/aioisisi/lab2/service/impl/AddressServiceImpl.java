@@ -20,26 +20,27 @@ public class AddressServiceImpl implements AddressService {
 
     @Override
     public Address save(Address entity) {
-        return null;
+        addressRepository.save(entity);
+        return entity;
     }
 
     @Override
     public Optional<Address> findById(Integer id) {
-        return Optional.empty();
+        return addressRepository.findById(id);
     }
 
     @Override
     public boolean existsById(Integer id) {
-        return false;
+        return addressRepository.existsById(id);
     }
 
     @Override
     public List<Address> findAll() {
-        return null;
+        return addressRepository.findAll();
     }
 
     @Override
     public void deleteById(Integer id) {
-
+        addressRepository.deleteById(id);
     }
 }
