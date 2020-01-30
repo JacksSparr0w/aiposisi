@@ -33,7 +33,7 @@
         <tr th:each="route : ${routes}">
             <th scope="row" th:text="${route.id}">id</th>
             <td th:text="${route.transport.name}">name</td>
-            <td th:text="${route.transport.type.name}">type name</td>
+            <td th:text="${route.transport.type.description}">type name</td>
             <td th:text="${route.departureAddress}, ${route.departureDateTime}">departure address, datetime</td>
             <td th:text="${route.arrivalAddress}, ${route.arrivalDateTime}">arrival address, datetime</td>
             <td th:text="${route.duration}">duration</td>
