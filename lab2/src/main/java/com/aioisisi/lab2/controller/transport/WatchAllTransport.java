@@ -19,7 +19,8 @@ public class WatchAllTransport {
 
     @GetMapping
     public String watchAllTransport(Model model){
+        model.addAttribute("transportList", transportService.findAll());
 
-        return null;
+        return "transport";
     }
 }

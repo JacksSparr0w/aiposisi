@@ -19,7 +19,8 @@ public class DeleteTransport {
 
     @GetMapping
     public String deleteTransport(@PathVariable Integer id) {
+        transportService.findById(id).ifPresent(transportService::delete);
 
-        return null;
+        return "redirect:/transport";
     }
 }
