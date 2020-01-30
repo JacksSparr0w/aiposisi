@@ -1,5 +1,6 @@
 package com.aioisisi.lab2.controller.transport;
 
+import com.aioisisi.lab2.entity.Route;
 import com.aioisisi.lab2.entity.Transport;
 import com.aioisisi.lab2.service.TransportService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +22,8 @@ public class AddTransport {
 
     @GetMapping
     public String add(Model model){
-
-        return null;
+        model.addAttribute("types", transportService.findAll());
+        model.addAttribute("route", new Route());
     }
 
     @PostMapping

@@ -24,8 +24,9 @@
                     <label>Выберите транспорт</label>
                     <select class="form-control" th:field="*{transport.id}">
                         <option th:each="transport : ${transportList}"
-                                th:text="${transport.name}, ${transport.type.description}, ${transport.capacity}"
+                        th:text="${transport.name} + ${transport.type.description} + ${transport.capacity}"
                                 th:value="${transport.id}">Тип
+
                         </option>
                     </select>
                 </div>
