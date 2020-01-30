@@ -12,6 +12,6 @@ public interface Service<T> {
 
     List<T> findAll();
 
-    void deleteById(Integer id);
+    void delete(T entity);
 
 }

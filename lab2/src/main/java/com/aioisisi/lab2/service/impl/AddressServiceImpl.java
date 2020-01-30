@@ -1,7 +1,9 @@
 package com.aioisisi.lab2.service.impl;
 
 import com.aioisisi.lab2.entity.Address;
+import com.aioisisi.lab2.entity.Route;
 import com.aioisisi.lab2.repository.AddressRepository;
+import com.aioisisi.lab2.repository.RouteRepository;
 import com.aioisisi.lab2.service.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,10 +14,12 @@ import java.util.Optional;
 @Service
 public class AddressServiceImpl implements AddressService {
     private final AddressRepository addressRepository;
+    private final RouteRepository routeRepository;
 
     @Autowired
-    public AddressServiceImpl(AddressRepository addressRepository) {
+    public AddressServiceImpl(AddressRepository addressRepository, RouteRepository routeRepository) {
         this.addressRepository = addressRepository;
+        this.routeRepository = routeRepository;
     }
 
     @Override
@@ -40,7 +44,11 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public void deleteById(Integer id) {
-        addressRepository.deleteById(id);
+    public void delete(Address entity) {
+        List<Route> routes = routeRepository.findAllByArrivalAddressOrDepartureAddress(entity, entity);
+        if (routes != null) {
+            routes.forEach(routeRepository::delete);
+        }
+        addressRepository.delete(entity);
     }
 }

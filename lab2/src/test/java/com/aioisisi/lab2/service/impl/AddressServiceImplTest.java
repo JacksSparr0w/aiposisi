@@ -1,15 +1,15 @@
-package com.aioisisi.lab2.repository;
+package com.aioisisi.lab2.service.impl;
 
 import com.aioisisi.lab2.entity.*;
-
-import org.junit.Before;
+import com.aioisisi.lab2.repository.*;
+import com.aioisisi.lab2.service.*;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.junit.Assert;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ import java.util.List;
 @RunWith(SpringRunner.class)
 @DataJpaTest
 @AutoConfigureTestDatabase
-public class RouteRepositoryTest {
+public class AddressServiceImplTest {
     @Autowired
     private RouteRepository routeRepository;
     @Autowired
@@ -30,6 +30,12 @@ public class RouteRepositoryTest {
     @Autowired
     private UserRepository userRepository;
 
+    private RouteService routeService;
+    private AddressService addressService;
+    private TypeService typeService;
+    private TransportService transportService;
+    private UserService userService;
+
     private Address start;
     private Address end;
     private Type type;
@@ -38,8 +44,14 @@ public class RouteRepositoryTest {
     private User diana;
     private Route route;
 
-    @Before
-    public void prepare(){
+    @Test
+    public void checkDelete(){
+        routeService = new RouteServiceImpl(routeRepository, userRepository);
+        typeService = new TypeServiceImpl(typeRepository, transportRepository, routeRepository);
+        transportService = new TransportServiceImpl(transportRepository, routeRepository);
+        userService = new UserServiceImpl(userRepository, routeRepository);
+        addressService = new AddressServiceImpl(addressRepository, routeRepository);
+
         start = new Address();
         start.setCity("Minsk");
         start.setCountry("Belarus");
@@ -52,20 +64,20 @@ public class RouteRepositoryTest {
         start.setNumber(98);
         start.setStreet("masherova");
 
-        addressRepository.save(start);
-        addressRepository.save(end);
+        addressService.save(start);
+        addressService.save(end);
 
         type = new Type();
         type.setDescription("plain");
 
-        typeRepository.save(type);
+        typeService.save(type);
 
         transport = new Transport();
         transport.setCapacity(250);
         transport.setName("Plain-777");
         transport.setType(type);
 
-        transportRepository.save(transport);
+        transportService.save(transport);
 
         vadim = new User();
         vadim.setLogin("Vadim");
@@ -73,8 +85,8 @@ public class RouteRepositoryTest {
         diana = new User();
         diana.setLogin("Diana");
 
-        userRepository.save(vadim);
-        userRepository.save(diana);
+        userService.save(vadim);
+        userService.save(diana);
 
         route = new Route();
         route.setArrivalDateTime(LocalDateTime.of(2020, 2, 24, 12, 23, 45));
@@ -87,38 +99,12 @@ public class RouteRepositoryTest {
         users.add(diana);
         route.setUsers(users);
 
-        routeRepository.save(route);
+        routeService.save(route);
+        addressService.delete(start);
 
-    }
-
-    @Test
-    public void checkCountOfUsersOnRoute(){
-        int expected = 2;
-        int actual = routeRepository.findUsersByRoute(route.getId()).size();
-        Assert.assertEquals(expected, actual);
-    }
-
-    @Test
-    public void checkRelationsBetweenTransportAndRoute(){
-        transportRepository.deleteById(transport.getId());
-
-        int expected = 1;
-        int actual = transportRepository.findAll().size();
+        int expected = 0;
+        int actual = routeService.findAll().size();
 
         Assert.assertEquals(expected, actual);
-    }
-
-    @Test
-    public void checkSearchingRoutesByAddress(){
-        List<Route> routes = routeRepository.findAllByArrivalAddressOrDepartureAddress(start, start);
-
-        Assert.assertEquals(1, routes.size());
-    }
-
-    @Test
-    public void checkSearchingRoutesByUsersContaining(){
-        List<Route> routes = routeRepository.findAllByUsersContaining(vadim);
-
-        Assert.assertEquals(1, routes.size());
     }
 }
