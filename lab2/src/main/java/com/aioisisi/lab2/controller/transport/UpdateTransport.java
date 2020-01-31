@@ -4,8 +4,8 @@ import com.aioisisi.lab2.entity.Transport;
 import com.aioisisi.lab2.entity.Type;
 import com.aioisisi.lab2.service.TransportService;
 import com.aioisisi.lab2.service.TypeService;
-import lombok.extern.log4j.Log4j2;
-import org.apache.logging.log4j.Level;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Optional;
 
-@Log4j2
 @Controller
 @RequestMapping(value = "/transports/{id}/update")
 public class UpdateTransport {
+    private static final Logger log = LoggerFactory.getLogger(UpdateTransport.class);
     private final TransportService transportService;
     private final TypeService typeService;
 
@@ -44,10 +44,10 @@ public class UpdateTransport {
         if (transportType.isPresent()){
             transport.setType(transportType.get());
             transportService.save(transport);
-            log.log(Level.INFO, "update route with id =" + transport.getId());
+            log.info("update route with id =" + transport.getId());
             return "transport";
         } else {
-            log.log(Level.INFO, "no such type, sorry");
+            log.info("no such type, sorry");
             return "redirect:/transports/add";
         }
     }
