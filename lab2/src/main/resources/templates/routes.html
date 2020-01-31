@@ -38,13 +38,13 @@
             <td th:text="${route.arrivalAddress}, ${route.arrivalDateTime}">arrival address, datetime</td>
             <td th:text="${route.duration}">duration</td>
 
-<!--            <td>-->
+            <td>
 <!--                <a th:href="@{/route/{id}/productions(id=${route.id})}">Productions</a>-->
 <!--                <a>|</a>-->
-<!--                <a th:href="@{/route/{id}/update(id=${route.id})}">Edit</a>-->
-<!--                <a>|</a>-->
-<!--                <a th:href="@{/route/{id}/delete(id=${route.id})}">Delete</a>-->
-<!--            </td>-->
+                <a th:href="@{/routes/{id}/update(id=${route.id})}">Изменить</a>
+                <a>|</a>
+                <a th:href="@{/routes/{id}/delete(id=${route.id})}">Удалить</a>
+            </td>
         </tr>
         </tbody>
     </table>

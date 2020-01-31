@@ -38,6 +38,6 @@ public class AddRoute {
         route.setDepartureAddress(addressService.save(route.getDepartureAddress()));
         routeService.save(route);
 
-        return "redirect:/ ";
+        return "redirect:/routes/all";
     }
 }

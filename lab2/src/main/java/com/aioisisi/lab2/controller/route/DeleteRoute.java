@@ -19,7 +19,8 @@ public class DeleteRoute {
 
     @GetMapping
     public String deleteRoute(@PathVariable Integer id) {
+        routeService.findById(id).ifPresent(routeService::delete);
 
-        return null;
+        return "redirect:/routes/all";
     }
 }

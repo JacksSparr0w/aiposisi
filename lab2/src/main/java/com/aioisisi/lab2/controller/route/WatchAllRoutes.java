@@ -20,6 +20,7 @@ public class WatchAllRoutes {
     @GetMapping
     public String watchAllRoutes(Model model){
         model.addAttribute("routes", routeService.findAll());
+
         return "routes";
     }
 }

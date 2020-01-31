@@ -42,7 +42,7 @@ public class UpdateTransport {
             transportService.save(transport);
             return "transport";
         } else {
-            return "redirect:/addTransport";
+            return "redirect:/transports/add";
         }
     }
 }

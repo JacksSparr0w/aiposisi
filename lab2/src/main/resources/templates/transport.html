@@ -33,13 +33,11 @@
             <td th:text="${transport.name}">name</td>
             <td th:text="${transport.capacity}">price</td>
             <td th:text="${transport.type.description}">type</td>
-<!--            <td>-->
-<!--                <a th:href="@{/transport/{id}/transportions(id=${transport.id})}">Productions</a>-->
-<!--                <a>|</a>-->
-<!--                <a th:href="@{/transport/{id}/update(id=${transport.id})}">Edit</a>-->
-<!--                <a>|</a>-->
-<!--                <a th:href="@{/transport/{id}/delete(id=${transport.id})}">Delete</a>-->
-<!--            </td>-->
+            <td>
+                <a th:href="@{/transports/{id}/update(id=${transport.id})}">Изменить</a>
+                <a>|</a>
+                <a th:href="@{/transports/{id}/delete(id=${transport.id})}">Удалить</a>
+            </td>
         </tr>
         </tbody>
     </table>
