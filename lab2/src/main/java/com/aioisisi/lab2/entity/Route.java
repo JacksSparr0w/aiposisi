@@ -36,6 +36,9 @@ public class Route {
     @Transient
     private LocalTime duration;
 
+    @Transient
+    private Integer freeSeats;
+
     public LocalTime getDuration() {
         //TODO: wtf, why it's red
 //        return new LocalTime.ofSecondOfDay(arrivalDateTime.getSecond() - departureDateTime.getSecond());
@@ -47,11 +50,19 @@ public class Route {
         this.arrivalAddress = new Address();
     }
 
-    public void addUser(User user){
-        users.add(user);
+    public boolean addUser(User user){
+        if (getFreeSeats() > 0){
+            return users.add(user);
+        } else {
+            return false;
+        }
     }
 
     public boolean isNotJoined(User user){
         return !users.contains(user);
+    }
+
+    public Integer getFreeSeats(){
+        return transport.getCapacity() - users.size();
     }
 }

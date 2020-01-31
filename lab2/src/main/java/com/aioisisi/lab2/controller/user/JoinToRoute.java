@@ -1,6 +1,5 @@
 package com.aioisisi.lab2.controller.user;
 
-import com.aioisisi.lab2.entity.Message;
 import com.aioisisi.lab2.entity.Route;
 import com.aioisisi.lab2.entity.User;
 import com.aioisisi.lab2.service.RouteService;
@@ -12,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Optional;
 
@@ -33,26 +33,31 @@ public class JoinToRoute {
         user.setRouteIdForJoin(route_id);
         model.addAttribute("route", route_id);
         model.addAttribute("user", user);
-        return "writeLogin";
+        return "login";
     }
 
     @PostMapping
     public String addUser(User user, Model model) {
-        Optional<User> userOptional = userService.findByLogin(user.getLogin());
         Optional<Route> routeOptional = routeService.findById(user.getRouteIdForJoin());
-        if (userOptional.isPresent() && routeOptional.isPresent()) {
+        if (routeOptional.isPresent()) {
             Route route = routeOptional.get();
-            user = userOptional.get();
-            if (route.isNotJoined(user)) {
-                route.addUser(user);
+            User u = findUser(user);
+            if (route.isNotJoined(u) && route.addUser(u)) {
                 routeService.save(route);
             } else {
-                Message error = new Message("Вы уже записаны на этот маршрут!");
-                model.addAttribute("message", error);
-                return "error";
+                return "redirect:/";
             }
         }
         return "redirect:/routes/all";
+    }
+
+    private User findUser(User user){
+        Optional<User> userOptional = userService.findByLogin(normalizeLogin(user.getLogin()));
+        return userOptional.orElseGet(() -> userService.save(user));
+    }
+
+    private String normalizeLogin(String login){
+        return login.toLowerCase().trim();
     }
 
 

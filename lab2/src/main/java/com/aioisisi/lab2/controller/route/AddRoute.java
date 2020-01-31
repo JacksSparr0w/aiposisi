@@ -26,7 +26,7 @@ public class AddRoute {
     }
 
     @GetMapping
-    public String add(Model model){
+    public String addPage(Model model){
         model.addAttribute("transportList", transportService.findAll());
         model.addAttribute("route", new Route());
         return "addRoute";

@@ -3,6 +3,7 @@ package com.aioisisi.lab2.controller.route;
 import com.aioisisi.lab2.entity.Route;
 import com.aioisisi.lab2.service.AddressService;
 import com.aioisisi.lab2.service.RouteService;
+import com.aioisisi.lab2.service.TransportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,11 +19,13 @@ import java.util.Optional;
 public class UpdateRoute {
     private final RouteService routeService;
     private final AddressService addressService;
+    private final TransportService transportService;
 
     @Autowired
-    public UpdateRoute(RouteService routeService, AddressService addressService) {
+    public UpdateRoute(RouteService routeService, AddressService addressService, TransportService transportService) {
         this.routeService = routeService;
         this.addressService = addressService;
+        this.transportService = transportService;
     }
 
 
@@ -30,6 +33,7 @@ public class UpdateRoute {
     public String updatePage(Model model, @PathVariable Integer id){
         Optional<Route> route = routeService.findById(id);
         if (route.isPresent()){
+            model.addAttribute("transportList", transportService.findAll());
             model.addAttribute("route", route.get());
             return "addRoute";
         } else {
