@@ -13,6 +13,7 @@ import org.junit.Assert;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
@@ -77,8 +78,8 @@ public class RouteRepositoryTest {
         userRepository.save(diana);
 
         route = new Route();
-        route.setArrivalDateTime(LocalDateTime.of(2020, 2, 24, 12, 23, 45));
-        route.setDepartureDateTime(LocalDateTime.of(2020, 2, 25, 12, 23, 45));
+//        route.setArrivalDateTime(new Date());
+//        route.setDepartureDateTime(new Date());
         route.setArrivalAddress(end);
         route.setDepartureAddress(start);
         route.setTransport(transport);
@@ -128,8 +129,8 @@ public class RouteRepositoryTest {
         route1.setTransport(transport);
         route1.setDepartureAddress(end);
         route1.setArrivalAddress(start);
-        route1.setArrivalDateTime(LocalDateTime.of(2020, 2, 24, 12, 23, 45));
-        route1.setDepartureDateTime(LocalDateTime.of(2020, 2, 25, 12, 23, 45));
+//        route1.setArrivalDateTime(new Date());
+//        route1.setDepartureDateTime(new Date());
         List<User> userList = new ArrayList<>();
         userList.add(vadim);
         userList.add(diana);

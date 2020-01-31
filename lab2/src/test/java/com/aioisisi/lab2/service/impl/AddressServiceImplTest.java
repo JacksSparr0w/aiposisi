@@ -13,6 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
@@ -89,8 +90,8 @@ public class AddressServiceImplTest {
         userService.save(diana);
 
         route = new Route();
-        route.setArrivalDateTime(LocalDateTime.of(2020, 2, 24, 12, 23, 45));
-        route.setDepartureDateTime(LocalDateTime.of(2020, 2, 25, 12, 23, 45));
+//        route.setArrivalDateTime(new Date());
+//        route.setDepartureDateTime(new Date());
         route.setArrivalAddress(end);
         route.setDepartureAddress(start);
         route.setTransport(transport);
