@@ -27,7 +27,7 @@ public class Route {
     @Column
     private LocalDateTime arrivalDateTime;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Transport transport;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -40,5 +40,10 @@ public class Route {
         //TODO: wtf, why it's red
 //        return new LocalTime.ofSecondOfDay(arrivalDateTime.getSecond() - departureDateTime.getSecond());
         return LocalTime.now();
+    }
+
+    public Route() {
+        this.departureAddress = new Address();
+        this.arrivalAddress = new Address();
     }
 }

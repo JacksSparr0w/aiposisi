@@ -29,6 +29,7 @@ public class UpdateTransport {
 
     @GetMapping
     public String add(Model model, @PathVariable Integer id){
+        model.addAttribute("types", typeService.findAll());
         transportService.findById(id).ifPresent(x -> model.addAttribute("transport", x));
         return "addTransport";
     }

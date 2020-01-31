@@ -46,7 +46,7 @@ public class AddressServiceImplTest {
 
     @Test
     public void checkDelete(){
-        routeService = new RouteServiceImpl(routeRepository, userRepository);
+        routeService = new RouteServiceImpl(routeRepository, userRepository, transportRepository);
         typeService = new TypeServiceImpl(typeRepository, transportRepository, routeRepository);
         transportService = new TransportServiceImpl(transportRepository, routeRepository);
         userService = new UserServiceImpl(userRepository, routeRepository);

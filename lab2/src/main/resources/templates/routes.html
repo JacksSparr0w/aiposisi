@@ -20,7 +20,6 @@
     <table class="table pt-5">
         <thead>
         <tr>
-            <th scope="col">Идентификатор</th>
             <th scope="col">Транспорт</th>
             <th scope="col">Тип транспорта</th>
             <th scope="col">Место, время отбытия</th>
@@ -31,11 +30,11 @@
         </thead>
         <tbody>
         <tr th:each="route : ${routes}">
-            <th scope="row" th:text="${route.id}">id</th>
             <td th:text="${route.transport.name}">name</td>
             <td th:text="${route.transport.type.description}">type name</td>
-            <td th:text="${route.departureAddress}, ${route.departureDateTime}">departure address, datetime</td>
-            <td th:text="${route.arrivalAddress}, ${route.arrivalDateTime}">arrival address, datetime</td>
+            <td th:text="${route.departureAddress} + ' ' + ${route.departureDateTime}">departure address, datetime</td>
+            <td th:text="${route.arrivalAddress} + ' ' + ${route.arrivalDateTime}">arrival address, datetime</td>
+            <td th:text="${route.transport.getCapacity()}">free seats</td>
             <td th:text="${route.duration}">duration</td>
 
             <td>

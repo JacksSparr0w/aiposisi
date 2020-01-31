@@ -20,7 +20,6 @@
     <table class="table pt-5">
         <thead>
         <tr>
-            <th scope="col">Идентификатор</th>
             <th scope="col">Название</th>
             <th scope="col">Вместимость (кол-во человек)</th>
             <th scope="col">Тип</th>
@@ -29,7 +28,6 @@
         </thead>
         <tbody>
         <tr th:each="transport : ${transportList}">
-            <th scope="row" th:text="${transport.id}">1</th>
             <td th:text="${transport.name}">name</td>
             <td th:text="${transport.capacity}">price</td>
             <td th:text="${transport.type.description}">type</td>

@@ -1,8 +1,10 @@
 package com.aioisisi.lab2.service.impl;
 
 import com.aioisisi.lab2.entity.Route;
+import com.aioisisi.lab2.entity.Transport;
 import com.aioisisi.lab2.entity.User;
 import com.aioisisi.lab2.repository.RouteRepository;
+import com.aioisisi.lab2.repository.TransportRepository;
 import com.aioisisi.lab2.repository.UserRepository;
 import com.aioisisi.lab2.service.RouteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,16 +18,20 @@ import java.util.Optional;
 public class RouteServiceImpl implements RouteService {
     private final RouteRepository routeRepository;
     private final UserRepository userRepository;
+    private final TransportRepository transportRepository;
 
     @Autowired
-    public RouteServiceImpl(RouteRepository routeRepository, UserRepository userRepository) {
+    public RouteServiceImpl(RouteRepository routeRepository, UserRepository userRepository, TransportRepository transportRepository) {
         this.routeRepository = routeRepository;
         this.userRepository = userRepository;
+        this.transportRepository = transportRepository;
     }
 
 
     @Override
     public Route save(Route entity) {
+        Transport tr = transportRepository.findById(entity.getTransport().getId()).get();
+        entity.setTransport(tr);
         return routeRepository.save(entity);
     }
 

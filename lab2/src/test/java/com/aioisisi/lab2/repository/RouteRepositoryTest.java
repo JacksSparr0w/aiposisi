@@ -121,4 +121,22 @@ public class RouteRepositoryTest {
 
         Assert.assertEquals(1, routes.size());
     }
+
+    @Test
+    public void checkSearchingRoutesForUser(){
+        Route route1 = new Route();
+        route1.setTransport(transport);
+        route1.setDepartureAddress(end);
+        route1.setArrivalAddress(start);
+        route1.setArrivalDateTime(LocalDateTime.of(2020, 2, 24, 12, 23, 45));
+        route1.setDepartureDateTime(LocalDateTime.of(2020, 2, 25, 12, 23, 45));
+        List<User> userList = new ArrayList<>();
+        userList.add(vadim);
+        route1.setUsers(userList);
+        routeRepository.save(route1);
+
+        List<Integer> routes = userRepository.findRoutesByUser(vadim.getId());
+
+        Assert.assertEquals(2, routeRepository.findAll().size());
+    }
 }

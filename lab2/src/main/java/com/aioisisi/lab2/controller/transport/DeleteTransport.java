@@ -21,6 +21,6 @@ public class DeleteTransport {
     public String deleteTransport(@PathVariable Integer id) {
         transportService.findById(id).ifPresent(transportService::delete);
 
-        return "redirect:/transport";
+        return "redirect:/transports/all";
     }
 }

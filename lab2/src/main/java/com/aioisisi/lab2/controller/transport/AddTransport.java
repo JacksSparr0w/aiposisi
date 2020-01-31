@@ -1,6 +1,5 @@
 package com.aioisisi.lab2.controller.transport;
 
-import com.aioisisi.lab2.entity.Route;
 import com.aioisisi.lab2.entity.Transport;
 import com.aioisisi.lab2.entity.Type;
 import com.aioisisi.lab2.service.TransportService;
@@ -31,7 +30,7 @@ public class AddTransport {
         model.addAttribute("types", typeService.findAll());
         model.addAttribute("transport", new Transport());
 
-        return "addTransportPage";
+        return "addTransport";
     }
 
     @PostMapping
