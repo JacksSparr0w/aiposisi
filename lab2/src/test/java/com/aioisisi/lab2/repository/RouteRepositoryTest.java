@@ -132,11 +132,17 @@ public class RouteRepositoryTest {
         route1.setDepartureDateTime(LocalDateTime.of(2020, 2, 25, 12, 23, 45));
         List<User> userList = new ArrayList<>();
         userList.add(vadim);
+        userList.add(diana);
         route1.setUsers(userList);
         routeRepository.save(route1);
 
         List<Integer> routes = userRepository.findRoutesByUser(vadim.getId());
 
-        Assert.assertEquals(2, routeRepository.findAll().size());
+        Assert.assertEquals(2, routes.size());
+    }
+
+    @Test
+    public void checkSearchingByLogin() {
+        Assert.assertNotNull(userRepository.findByLogin("diana"));
     }
 }

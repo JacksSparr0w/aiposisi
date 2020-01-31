@@ -8,6 +8,7 @@ import com.aioisisi.lab2.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -53,4 +54,18 @@ public class UserServiceImpl implements UserService {
     }
 
 
+    @Override
+    public List<Route> findRoutesByUser(User user) {
+        List<Integer> routes_id = userRepository.findRoutesByUser(user.getId());
+        List<Route> routes= new ArrayList<>();
+        for (Integer route_id : routes_id) {
+            routes.add(routeRepository.findById(route_id).get());
+        }
+        return routes;
+    }
+
+    @Override
+    public Optional<User> findByLogin(String login) {
+        return userRepository.findByLogin(login);
+    }
 }

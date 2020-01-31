@@ -30,7 +30,7 @@ public class Route {
     @ManyToOne(fetch = FetchType.LAZY)
     private Transport transport;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY)
     private List<User> users;
 
     @Transient
@@ -45,5 +45,13 @@ public class Route {
     public Route() {
         this.departureAddress = new Address();
         this.arrivalAddress = new Address();
+    }
+
+    public void addUser(User user){
+        users.add(user);
+    }
+
+    public boolean isNotJoined(User user){
+        return !users.contains(user);
     }
 }

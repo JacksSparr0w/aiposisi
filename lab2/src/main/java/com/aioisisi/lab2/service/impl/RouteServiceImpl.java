@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class RouteServiceImpl implements RouteService {
@@ -58,13 +59,17 @@ public class RouteServiceImpl implements RouteService {
 
     @Override
     public List<User> findUsersByRoute(Integer route_id) {
-        List<Integer> users_id = routeRepository.findUsersByRoute(route_id);
-        List<User> users = new ArrayList<>();
-        for (Integer id : users_id){
-            users.add(userRepository.findById(id).get());
-        }
-        return users;
-        //todo stream or lambda
+        return routeRepository.findUsersByRoute(route_id).stream()
+                .map(userRepository::findById)
+                .filter(Optional::isPresent)
+                .map(Optional::get)
+                .collect(Collectors.toList());
+//        List<User> users = new ArrayList<>();
+//        for (Integer id : users_id){
+//            users.add(userRepository.findById(id).get());
+//        }
+//        return users;
+//        //todo stream or lambda
     }
 
 }
