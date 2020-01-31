@@ -1,9 +1,12 @@
 package com.aioisisi.lab2.controller.route;
 
 import com.aioisisi.lab2.entity.Route;
+import com.aioisisi.lab2.entity.User;
 import com.aioisisi.lab2.service.AddressService;
 import com.aioisisi.lab2.service.RouteService;
 import com.aioisisi.lab2.service.TransportService;
+import lombok.extern.log4j.Log4j2;
+import org.apache.logging.log4j.Level;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,8 +15,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
 import java.util.Optional;
 
+@Log4j2
 @Controller
 @RequestMapping(value = "/routes/{id}/update")
 public class UpdateRoute {
@@ -35,6 +40,7 @@ public class UpdateRoute {
         if (route.isPresent()){
             model.addAttribute("transportList", transportService.findAll());
             model.addAttribute("route", route.get());
+            model.addAttribute("users", route.get().getUsers());
             return "addRoute";
         } else {
             return "redirect:/routes/all";
@@ -47,8 +53,10 @@ public class UpdateRoute {
     public String update(Route route){
         route.setArrivalAddress(addressService.save(route.getArrivalAddress()));
         route.setDepartureAddress(addressService.save(route.getDepartureAddress()));
+        route.setUsers(routeService.findUsersByRoute(route.getId()));
         routeService.save(route);
 
+        log.log(Level.INFO, "update route with id =" + route.getId());
         return "redirect:/routes/all";
     }
 }

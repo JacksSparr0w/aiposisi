@@ -4,6 +4,8 @@ import com.aioisisi.lab2.entity.Route;
 import com.aioisisi.lab2.entity.User;
 import com.aioisisi.lab2.service.RouteService;
 import com.aioisisi.lab2.service.UserService;
+import lombok.extern.log4j.Log4j2;
+import org.apache.logging.log4j.Level;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Optional;
 
+@Log4j2
 @Controller
 @RequestMapping(value = "/routes/{route_id}/join")
 public class JoinToRoute {
@@ -31,6 +34,7 @@ public class JoinToRoute {
     public String getPage(Model model, @PathVariable Integer route_id) {
         User user = new User();
         user.setRouteIdForJoin(route_id);
+        log.log(Level.INFO, "route with id = " + route_id + " was chosen");
         model.addAttribute("route", route_id);
         model.addAttribute("user", user);
         return "login";
@@ -43,10 +47,14 @@ public class JoinToRoute {
             Route route = routeOptional.get();
             User u = findUser(user);
             if (route.isNotJoined(u) && route.addUser(u)) {
+                log.log(Level.INFO, "user with id = " + u.getId() + " joined the route with id = " + route.getId());
                 routeService.save(route);
             } else {
+                log.log(Level.INFO, "maybe there no free seats or you join this also");
                 return "redirect:/";
             }
+        } else {
+            log.log(Level.INFO, "there is no such route");
         }
         return "redirect:/routes/all";
     }
