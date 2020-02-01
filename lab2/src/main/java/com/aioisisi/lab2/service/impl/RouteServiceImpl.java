@@ -64,12 +64,6 @@ public class RouteServiceImpl implements RouteService {
                 .filter(Optional::isPresent)
                 .map(Optional::get)
                 .collect(Collectors.toList());
-//        List<User> users = new ArrayList<>();
-//        for (Integer id : users_id){
-//            users.add(userRepository.findById(id).get());
-//        }
-//        return users;
-//        //todo stream or lambda
     }
 
 }

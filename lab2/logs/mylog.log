@@ -8472,3 +8472,7 @@ java.sql.SQLIntegrityConstraintViolationException: Duplicate entry '1' for key '
 2020-02-01 12:24:06.764  INFO 6218 --- [http-nio-8080-exec-5] c.a.l.c.t.DeleteTransport                : delete transport with id =3
 2020-02-01 12:24:06.779  INFO 6218 --- [http-nio-8080-exec-6] c.a.l.c.t.WatchAllTransport              : all transports
 2020-02-01 12:24:09.354  INFO 6218 --- [http-nio-8080-exec-9] c.a.l.c.r.WatchAllRoutes                 : all routes
+2020-02-01 12:40:28.160  INFO 6218 --- [Thread-15] o.s.s.c.ThreadPoolTaskExecutor           : Shutting down ExecutorService 'applicationTaskExecutor'
+2020-02-01 12:40:28.165  INFO 6218 --- [Thread-15] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2020-02-01 12:40:28.171  INFO 6218 --- [Thread-15] c.z.h.HikariDataSource                   : HikariPool-1 - Shutdown initiated...
+2020-02-01 12:40:28.185  INFO 6218 --- [Thread-15] c.z.h.HikariDataSource                   : HikariPool-1 - Shutdown completed.
