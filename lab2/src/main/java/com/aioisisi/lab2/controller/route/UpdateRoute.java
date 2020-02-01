@@ -9,11 +9,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.Optional;
 
 @Controller
@@ -46,9 +44,10 @@ public class UpdateRoute {
 
     }
 
-
     @PostMapping
-    public String update(Route route){
+    public String update(Route route, @RequestParam(value = "departureDT") Date departureDT, @RequestParam(value = "arrivalDT") Date arrivalDT){
+        route.setArrivalDateTime(arrivalDT);
+        route.setDepartureDateTime(departureDT);
         route.setArrivalAddress(addressService.save(route.getArrivalAddress()));
         route.setDepartureAddress(addressService.save(route.getDepartureAddress()));
         route.setUsers(routeService.findUsersByRoute(route.getId()));

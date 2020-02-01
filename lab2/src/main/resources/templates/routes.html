@@ -25,25 +25,21 @@
             <th scope="col">Место, время отбытия</th>
             <th scope="col">Место, время прибытия</th>
             <th scope="col">Свободное Кол-во мест</th>
-            <th scope="col">Длительность</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="route : ${routes}">
             <td th:text="${route.transport.name}">name</td>
             <td th:text="${route.transport.type.description}">type name</td>
-            <td th:text="${route.departureAddress} + ' ' + ${route.departureDateTime}">departure address, datetime</td>
-            <td th:text="${route.arrivalAddress} + ' ' + ${route.arrivalDateTime}">arrival address, datetime</td>
+            <td th:text="${route.departureAddress} + ' ' + ${#dates.format(route.departureDateTime, 'dd-MM-yyyy HH:mm')}">departure address, datetime</td>
+            <td th:text="${route.arrivalAddress} + ' ' + ${#dates.format(route.arrivalDateTime, 'dd-MM-yyyy HH:mm')}">arrival address, datetime</td>
             <td th:text="${route.freeSeats}">free seats</td>
-            <td th:text="${route.duration}">duration</td>
 
             <td>
-<!--                <a th:href="@{/route/{id}/productions(id=${route.id})}">Productions</a>-->
-<!--                <a>|</a>-->
                 <a th:href="@{/routes/{id}/update(id=${route.id})}">Изменить</a>
                 <a>|</a>
                 <a th:href="@{/routes/{id}/delete(id=${route.id})}">Удалить</a>
-                <a th:href="@{/routes/{route_id}/join(route_id=${route.id})}">Join</a>
+                <a th:href="@{/routes/{route_id}/join(route_id=${route.id})}">Записаться</a>
 
             </td>
         </tr>

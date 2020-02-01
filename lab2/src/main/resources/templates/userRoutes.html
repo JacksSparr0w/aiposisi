@@ -24,7 +24,6 @@
             <th scope="col">Место, время отбытия</th>
             <th scope="col">Место, время прибытия</th>
             <th scope="col">Свободное Кол-во мест</th>
-            <th scope="col">Длительность</th>
         </tr>
         </thead>
         <tbody>
@@ -34,7 +33,6 @@
             <td th:text="${route.departureAddress} + ' ' + ${route.departureDateTime}">departure address, datetime</td>
             <td th:text="${route.arrivalAddress} + ' ' + ${route.arrivalDateTime}">arrival address, datetime</td>
             <td th:text="${route.freeSeats}">free seats</td>
-            <td th:text="${route.duration}">duration</td>
 
             <td>
                 <a th:href="@{/routes/{id}/update(id=${route.id})}">Изменить</a>

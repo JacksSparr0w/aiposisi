@@ -52,7 +52,7 @@
                         <div class="container p-2">
                             <label for="dateD">Дата/Время Посадки</label>
 
-                            <input type="text" class="form-control" name="dateTime" id="dateD" th:field="*{departureDateTime}"/>
+                            <input type="text" class="form-control" name="departureDT" id="dateD" th:name="departureDT" th:value="*{departureDateTime}"/>
                         </div>
                     </div>
                     <div class="col-6">
@@ -80,7 +80,7 @@
                         <div class="container p-2">
                             <label for="dateA">Дата/Время</label>
 
-                            <input type="text" class="form-control" name="dateTime" id="dateA" th:field="*{arrivalDateTime}"/>
+                            <input type="text" class="form-control" name="arrivalDT" id="dateA" th:name="arrivalDT" th:value="*{arrivalDateTime}"/>
 
                         </div>
                     </div>
@@ -97,10 +97,26 @@
 <script src="/webjars/bootstrap-daterangepicker/3.0.5/daterangepicker.js"></script>
 <script>
     $(function () {
-        $('input[name="dateTime"]').daterangepicker({
+        $('input[name="departureDT"]').daterangepicker({
             singleDatePicker: true,
             timePicker: true,
             timePicker24Hour: true,
+            drops: "up",
+            startDate: moment().startOf('hour'),
+            endDate: moment().startOf('hour').add(32, 'hour'),
+            locale: {
+                format: 'YYYY/MM/DD hh:mm'
+            }
+        });
+    });
+</script>
+<script>
+    $(function () {
+        $('input[name="arrivalDT"]').daterangepicker({
+            singleDatePicker: true,
+            timePicker: true,
+            timePicker24Hour: true,
+            drops: "up",
             startDate: moment().startOf('hour'),
             endDate: moment().startOf('hour').add(32, 'hour'),
             locale: {

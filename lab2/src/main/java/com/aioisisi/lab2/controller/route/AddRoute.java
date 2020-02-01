@@ -12,6 +12,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.Date;
 
 @Controller
 @RequestMapping(value = "/routes/add")
@@ -36,7 +39,9 @@ public class AddRoute {
     }
 
     @PostMapping
-    public String save(Route route){
+    public String save(Route route, @RequestParam(value = "departureDT") Date departureDT, @RequestParam(value = "arrivalDT") Date arrivalDT){
+        route.setArrivalDateTime(arrivalDT);
+        route.setDepartureDateTime(departureDT);
         route.setArrivalAddress(addressService.save(route.getArrivalAddress()));
         route.setDepartureAddress(addressService.save(route.getDepartureAddress()));
         routeService.save(route);
