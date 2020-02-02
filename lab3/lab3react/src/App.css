@@ -1,3 +1,18 @@
+.card {
+  max-width: 200px;
+  min-height: 250px;
+  background-color: rgb(219, 219, 219);
+  border-radius: 2px;
+  margin: 1rem;
+  box-shadow: -1px 3px 1px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22)
+
+}
+
+.card:hover{
+  box-shadow: -6px 5px 4px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22)
+
+}
+
 .App {
   text-align: center;
 }
@@ -14,14 +29,14 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #f1f1f1;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: rgb(56, 56, 56);
 }
 
 .App-link {
@@ -36,3 +51,4 @@
     transform: rotate(360deg);
   }
 }
+
