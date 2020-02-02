@@ -18,6 +18,13 @@ class TransportList extends React.Component {
             this.setState({ transports: res})
           });
       }
+
+      componentWillUpdate() {
+        CommonRequests.getAllTransports()
+          .then(res => {
+            this.setState({ transports: res})
+          });
+      }
     
       getArr(arr) {
         if (arr) {
