@@ -1,7 +1,7 @@
 package com.aioisisi.lab2.controller.route;
 
+import com.aioisisi.lab2.entity.Address;
 import com.aioisisi.lab2.entity.Route;
-import com.aioisisi.lab2.entity.Transport;
 import com.aioisisi.lab2.entity.User;
 import com.aioisisi.lab2.service.AddressService;
 import com.aioisisi.lab2.service.RouteService;
@@ -10,7 +10,6 @@ import com.aioisisi.lab2.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -40,12 +39,14 @@ public class RouteController {
     }
 
     @PostMapping(value = "/add")
-    public Route addNewRoute(@RequestBody Route route) {
+    public Route addNewRoute(@RequestBody Route route, @RequestBody Address departure, @RequestBody Address arrival) {
 //        route.setArrivalDateTime(arrivalDT);
 //        route.setDepartureDateTime(departureDT);
         //todo возможно надо будет добавить дату если не будет работать
-        route.setArrivalAddress(addressService.save(route.getArrivalAddress()));
-        route.setDepartureAddress(addressService.save(route.getDepartureAddress()));
+//        route.setArrivalAddress(addressService.save(route.getArrivalAddress()));
+//        route.setDepartureAddress(addressService.save(route.getDepartureAddress()));
+        route.setArrivalAddress(addressService.save(arrival));
+        route.setDepartureAddress(addressService.save(departure));
         routeService.save(route);
 
         log.info("add new route");
@@ -58,7 +59,7 @@ public class RouteController {
         routeService.findById(route.getId()).ifPresent(routeService::delete);
     }
 
-    @PutMapping(value = "/{id}/update")
+    @PostMapping(value = "/{id}/update")
     public Route updateRoute(@PathVariable(value = "id") Integer id, @RequestBody Route route) {
 //        route.setArrivalDateTime(arrivalDT);
 //        route.setDepartureDateTime(departureDT);
