@@ -24,20 +24,27 @@ class InputRoute extends React.Component {
 
                         <div className="row">
                             <div className="col-6">
-                                <InputAddress/>
-                                <DatePickerInput
-                                onChange={this.dateChange.bind(this)}
-                                minDate={new Date()}
-                                className='my-custom-datepicker-component'
-                            />
+                                <InputAddress />
+                                <div className="input-group mb-3">
+                                    <DatePickerInput
+                                        minDate={new Date()}
+                                        className='my-custom-datepicker-component'
+                                    />
+                                </div>
+
                             </div>
                             <div className="col-6">
-                                <InputAddress/>
+                                <InputAddress />
+                                <div className="input-group mb-3">
+                                    <DatePickerInput
+                                        minDate={new Date()}
+                                        className='my-custom-datepicker-component'
+                                    />
+                                </div>
                             </div>
                         </div>
-                        <div className="input-group mb-3">
-                            <label>Choose date...</label>
-                        </div>
+
+
                         <button className="btn btn-outline-success p-2" type="submit">Save</button>
                     </div>
                 </form>

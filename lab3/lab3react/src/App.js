@@ -13,7 +13,7 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <header className="container" >
+      <header className="App-header">
           <Route path="/" exact component={Home}/>
           <Route strict path="/routes" exact component={Routes} />
           <Route strict path="/transports" exact component={TransportList} />
