@@ -2,7 +2,7 @@ import asyncAPI from '../api'
 
 const getAllRoutes = () => {
     return asyncAPI('getJSON', {
-        url: `/routes/all/`,
+        url: `/routes/all`,
     })
 }
 
@@ -14,13 +14,13 @@ const deleteRoute = (input_route_id) => {
 
 const getAllTypes = () => {
     return asyncAPI('getJSON', {
-        url: `/types/all/`,
+        url: `/types/all`,
     })
 }
 
 const getAllTransports = () => {
     return asyncAPI('getJSON', {
-        url: `/transports/all/`,
+        url: `/transports/all`,
     })
 }
 

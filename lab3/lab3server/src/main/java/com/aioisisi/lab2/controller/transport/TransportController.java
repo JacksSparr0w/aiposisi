@@ -51,7 +51,7 @@ public class TransportController {
         transportService.findById(transport.getId()).ifPresent(transportService::delete);
     }
 
-    @PutMapping(value = "/{id}/update")
+    @PostMapping(value = "/{id}/update")
     public Transport updateTransport(@PathVariable(value = "id") Integer id, @RequestBody Transport transport) {
         Optional<Type> transportType = typeService.findById(transport.getType().getId());
         if (transportType.isPresent()){

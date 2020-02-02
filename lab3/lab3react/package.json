@@ -6,7 +6,6 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.26",
     "@fortawesome/free-solid-svg-icons": "^5.12.0",
     "@fortawesome/react-fontawesome": "^0.1.8",
-<<<<<<< HEAD
     "@y0c/react-datepicker": "^1.0.1",
     "cors": "^2.8.5",
     "rc-datepicker": "^5.0.15",
@@ -16,18 +15,6 @@
     "react-router-dom": "^4.3.1",
     "react-scripts": "^3.3.0",
     "semantic-ui-react": "^0.88.2"
-=======
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.4.0",
-    "@testing-library/user-event": "^7.2.1",
-    "moment": "^2.24.0",
-    "rc-datepicker": "^5.0.15",
-    "react": "^16.12.0",
-    "react-datepicker": "^2.11.0",
-    "react-dom": "^16.12.0",
-    "react-moment": "^0.9.7",
-    "react-scripts": "3.3.1"
->>>>>>> 776d7a3346861b363ea676a36e3e27eae5645e2c
   },
   "scripts": {
     "start": "react-scripts start",
