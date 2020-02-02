@@ -1,5 +1,8 @@
 import React from 'react';
 import InputAddress from './InputAddress'
+// import 'moment/locale/it.js';
+// import { DatePicker, DatePickerInput } from 'rc-datepicker';
+// import 'rc-datepicker/lib/style.css';
 
 class InputRoute extends React.Component {
     render() {
@@ -22,6 +25,11 @@ class InputRoute extends React.Component {
                         <div className="row">
                             <div className="col-6">
                                 <InputAddress/>
+                                {/* <DatePickerInput
+                                onChange={this.dateChange.bind(this)}
+                                minDate={new Date()}
+                                className='my-custom-datepicker-component'
+                            /> */}
                             </div>
                             <div className="col-6">
                                 <InputAddress/>
