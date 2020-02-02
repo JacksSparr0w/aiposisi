@@ -4,8 +4,8 @@ class InputAddress extends React.Component {
     render() {
         return (
             <div className="container">
-                <label>Departure address</label>
-
+                <label>Departure/Arrival address</label>
+                {/* передать сюда что за адрес (departure/arrival) и отобразить */}
                 <div className="input-group mb-3">
                     <div className="input-group-prepend">
                         <span className="input-group-text" id="country">Country</span>

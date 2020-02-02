@@ -1,5 +1,4 @@
 import React from 'react';
-import './App.css';
 
 class InputTransport extends React.Component {
   render() {

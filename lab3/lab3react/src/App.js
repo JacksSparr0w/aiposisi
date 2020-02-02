@@ -1,9 +1,10 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import Home from './components/Home';
 import Routes from './components/route/Routes';
 import TransportList from './components/transport/TransportList';
+import InputTransport from './components/transport/InputTransport';
+import InputRoute from './components/route/InputRoute';
 
 function App() {
   return (
@@ -12,6 +13,8 @@ function App() {
         <Home/>
         <Routes/>
         <TransportList/>
+        <InputRoute/>
+        <InputTransport/>
         {/* Логика переключения компонентов */}
         </header>
     </div>

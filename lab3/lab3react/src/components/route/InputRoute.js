@@ -19,11 +19,11 @@ class InputRoute extends React.Component {
                             </select>
                         </div>
 
-                        <div classNameName="row">
-                            <div classNameName="col-6">
+                        <div className="row">
+                            <div className="col-6">
                                 <InputAddress/>
                             </div>
-                            <div classNameName="col-6">
+                            <div className="col-6">
                                 <InputAddress/>
                             </div>
                         </div>

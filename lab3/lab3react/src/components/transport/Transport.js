@@ -1,4 +1,7 @@
 import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faEdit } from '@fortawesome/free-solid-svg-icons';
 
 class Transport extends React.Component {
 
@@ -8,7 +11,11 @@ class Transport extends React.Component {
                 <p>Transport name</p>
                 <p> Transport type</p>
                 <p>Capacity</p>
-                <p>actions</p>
+
+                <div className="d-flex justify-content-around mb-2">
+                <FontAwesomeIcon icon={faTrash} />
+                <FontAwesomeIcon icon={faEdit} />
+                </div>
             </div>
         );
     }
