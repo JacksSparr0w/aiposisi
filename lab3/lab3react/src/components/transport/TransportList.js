@@ -34,14 +34,14 @@ class TransportList extends React.Component {
 
 
     render() {
-        if (this.state.transports){
+   if (this.state.transports){
 			var {transports} = this.state;
 		}
         return (
             <div className="container row">
                 {this.getArr(transports)}
 
-                <div className="card addCard">
+                <div onClick={(e) => { window.location.assign('/transports/add'); }} className="card addCard">
                     <FontAwesomeIcon icon={faPlus} size="8x" />
                 </div>
 

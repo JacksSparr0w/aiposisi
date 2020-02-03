@@ -18,6 +18,12 @@ const getAllTypes = () => {
     })
 }
 
+const getType = (input_id) => {
+    return asyncAPI('getJSON', {
+        url: `/types/` + input_id,
+    })
+}
+
 const getAllTransports = () => {
     return asyncAPI('getJSON', {
         url: `/transports/all`,
@@ -109,5 +115,6 @@ export default {
     addTransport, 
     addRoute, 
     updateTransport,
-    joinRoute
+    joinRoute,
+    getType
 }
