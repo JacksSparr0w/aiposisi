@@ -34,19 +34,25 @@ public class RouteController {
 
     @GetMapping(value = "/all")
     public List<Route> allRoutes() {
-        log.info("all routes");
+//        log.info("all routes");
         return routeService.findAll();
     }
 
+    @GetMapping(value = "/{id}")
+    public Route getById(@PathVariable Integer id) {
+//        log.info("all routes");
+        return routeService.findById(id).get();
+    }
+
     @PostMapping(value = "/add")
-    public Route addNewRoute(@RequestBody Route route, @RequestBody Address departure, @RequestBody Address arrival) {
+    public Route addNewRoute(@RequestBody Route route) {
 //        route.setArrivalDateTime(arrivalDT);
 //        route.setDepartureDateTime(departureDT);
         //todo возможно надо будет добавить дату если не будет работать
-//        route.setArrivalAddress(addressService.save(route.getArrivalAddress()));
-//        route.setDepartureAddress(addressService.save(route.getDepartureAddress()));
-        route.setArrivalAddress(addressService.save(arrival));
-        route.setDepartureAddress(addressService.save(departure));
+        route.setArrivalAddress(addressService.save(route.getArrivalAddress()));
+        route.setDepartureAddress(addressService.save(route.getDepartureAddress()));
+//        route.setArrivalAddress(addressService.save(arrival));
+//        route.setDepartureAddress(addressService.save(departure));
         routeService.save(route);
 
         log.info("add new route");

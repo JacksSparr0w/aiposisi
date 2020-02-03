@@ -15,4 +15,6 @@ public interface UserRepository  extends JpaRepository<User, Integer> {
     List<Integer> findRoutesByUser(@Param("user_id") Integer user_id);
 
     Optional<User> findByLogin(String login);
+
+    Boolean existsByLogin(String login);
 }
