@@ -41,8 +41,13 @@ public class TransportController {
 
     @GetMapping(value = "/all")
     public List<Transport> allTransports(){
-        log.info("all transports");
+//        log.info("all transports");
         return transportService.findAll();
+    }
+
+    @GetMapping(value = "/{id}")
+    public Transport getTransportById(@PathVariable Integer id){
+        return transportService.findById(id).get();
     }
 
     @DeleteMapping(value = "/{id}/delete")

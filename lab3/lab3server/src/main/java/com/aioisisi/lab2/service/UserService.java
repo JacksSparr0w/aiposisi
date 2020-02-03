@@ -10,4 +10,6 @@ public interface UserService extends Service<User> {
     List<Route> findRoutesByUser(User user);
 
     Optional<User> findByLogin(String login);
+
+    Boolean existsByLogin(String login);
 }
