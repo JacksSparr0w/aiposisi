@@ -14,24 +14,43 @@ class Route extends React.Component {
     getOpportunities() {
         if (this.props.join == true) {
             return <div>
-                <button type="button" onClick={(e) => { window.location.assign('/routes/' + this.props.id + '/join'); }} className="btn btn-primary m-3">Join</button>
 
-                <div className="d-flex justify-content-around mb-2">
-                    <FontAwesomeIcon icon={faTrash} onClick={(e) => { CommonRequests.deleteRoute(this.props.id) }} />
-                    <FontAwesomeIcon icon={faEdit} onClick={(e) => {window.location.assign('/routes/' + this.props.id + '/update');  }}/>
+                <div className="d-flex justify-content-around mb-4">
+                    <FontAwesomeIcon className="m-2" icon={faTrash} onClick={(e) => { CommonRequests.deleteRoute(this.props.id) }} />
+                    <button type="button" onClick={(e) => { window.location.assign('/routes/' + this.props.id + '/join'); }} className="btn btn-primary">Join</button>
+                    <FontAwesomeIcon className="m-2" icon={faEdit} onClick={(e) => {window.location.assign('/routes/' + this.props.id + '/update');  }}/>
                 </div>
                 </div>
         }
     }
 
+    formatDate(date) {
+		if (date != null) {
+			var monthNames = [
+				"January", "February", "March",
+				"April", "May", "June", "July",
+				"August", "September", "October",
+				"November", "December"
+			];
+
+			var day = date.getDate();
+			var monthIndex = date.getMonth();
+			var year = date.getFullYear();
+
+			return day + ' ' + monthNames[monthIndex] + ' ' + year;
+		}
+	}
+
     render() {
         return (
             <div className="card d-flex justify-content-around">
-                <p>{this.props.transportName}</p>
-                <p>{this.props.transportType}</p>
-                <p>{this.props.departureAddress}, {this.props.depDateTime}</p>
-                <p>{this.props.arrivalAddress}, {this.props.arrDateTime}</p>
-                <p>{this.props.freeSeats}</p>
+                <h4>{this.props.transportName}</h4>
+                <h6>{this.props.transportType}</h6>
+                <h4>From: {this.props.departureAddress}</h4> 
+                <h6>{this.formatDate(new Date(this.props.depDateTime))}</h6>
+                <h4>To: {this.props.arrivalAddress}</h4>
+                <h6>{this.formatDate(new Date(this.props.arrDateTime))}</h6>
+                <strong>Free seats: {this.props.freeSeats}</strong>
 
                 {this.getOpportunities()}
 

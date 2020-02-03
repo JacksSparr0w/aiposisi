@@ -14,9 +14,9 @@ class Transport extends React.Component {
     render() {
         return (
             <div className="card d-flex justify-content-around">
-                <p>{this.props.name}</p>
-                <p>{this.props.type}</p>
-                <p>{this.props.capacity}</p>
+                <h4>{this.props.name}</h4>
+                <h6>{this.props.type}</h6>
+                <strong>Capacity: {this.props.capacity}</strong>
 
                 <div className="d-flex justify-content-around mb-2">
                 <FontAwesomeIcon icon={faTrash} onClick={(e) => {CommonRequests.deleteTransport(this.props.id)  }}/>
