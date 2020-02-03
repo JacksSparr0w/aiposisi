@@ -27,7 +27,17 @@ class InputRoute extends React.Component {
     componentDidMount() {
         CommonRequests.getAllTransports()
             .then(res => {
-                this.setState({ transports: res })
+                if (this.props.match.params.id) {
+                CommonRequests.getRoute(this.props.match.params.id)
+                .then(result => {
+                    this.setState({ transports: res, route: result, transport: result.transport, 
+                        depCountry: result.departureAddress.country, depCity: result.departureAddress.city, 
+                        depStreet: result.departureAddress.street, depNumber: result.departureAddress.number, 
+                        arrCountry: result.arrivalAddress.country, arrCity: result.arrivalAddress.city,
+                        arrStreet: result.arrivalAddress.street, arrNumber: result.arrivalAddress.number, 
+                        depDateTime: result.departureDateTime, arrDateTime: result.arrivalDateTime})
+                })
+            } else this.setState({ transports: res })
             });
     }
 
@@ -82,7 +92,9 @@ class InputRoute extends React.Component {
     }
 
     onclick() {
-        CommonRequests.addRoute(this.state.depCountry, this.state.depCity, this.state.depStreet, this.state.depNumber, this.state.arrCountry, this.state.arrCity, this.state.arrStreet, this.state.arrNumber, this.state.depDateTime, this.state.arrDateTime, this.state.transport);
+        if (this.props.match.params.id) {
+            CommonRequests.updateRoute(this.props.match.params.id, this.state.depCountry, this.state.depCity, this.state.depStreet, this.state.depNumber, this.state.arrCountry, this.state.arrCity, this.state.arrStreet, this.state.arrNumber, this.state.depDateTime, this.state.arrDateTime, this.state.transport);
+        } else CommonRequests.addRoute(this.state.depCountry, this.state.depCity, this.state.depStreet, this.state.depNumber, this.state.arrCountry, this.state.arrCity, this.state.arrStreet, this.state.arrNumber, this.state.depDateTime, this.state.arrDateTime, this.state.transport);
         window.location.assign('/routes');
     }
 
@@ -134,7 +146,7 @@ class InputRoute extends React.Component {
                                         <input type="text" onInput={this.depNumberChange.bind(this)} className="form-control" aria-label="number" aria-describedby="number" />
                                     </div>
                                 </div>
-                                <div className="input-group mb-3">
+                                <div className="input-group mb-3 ml-3">
                                     <DatePickerInput
                                         onChange={this.depDateChange.bind(this)}
                                         minDate={new Date()}
@@ -172,7 +184,7 @@ class InputRoute extends React.Component {
                                         <input type="text" onInput={this.arrNumberChange.bind(this)} className="form-control" aria-label="number" aria-describedby="arrnumber" />
                                     </div>
                                 </div>
-                                <div className="input-group mb-3">
+                                <div className="input-group mb-3 ml-3">
                                     <DatePickerInput
                                         onChange={this.arrDateChange.bind(this)}
                                         minDate={new Date()}
