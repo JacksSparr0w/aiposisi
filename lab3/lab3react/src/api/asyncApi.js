@@ -8,11 +8,9 @@ const headers = {
     'Access-Control-Allow-Origin': '*',
 }
 
-//const authdata = window.btoa(`incognito@iba.by:welcome`)
 headers.Authorization = 'Basic '// + authdata
 
  const apiPathUrl = 'http://localhost:8080';
-//const apiPathUrl = 'https://24e17c8f-23c1-4d17-a248-9353f4b09841.mock.pstmn.io';
 
 const getFullUrl = (url, params) =>
     apiPathUrl + (url || '') + (params ? '?' + queryParams(params) : '')
