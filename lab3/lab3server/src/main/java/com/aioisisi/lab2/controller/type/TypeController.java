@@ -17,7 +17,7 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/types")
 public class TypeController {
-    private static final Logger log = LoggerFactory.getLogger(TransportController.class);
+    private static final Logger log = LoggerFactory.getLogger(TypeController.class);
     private final TypeService typeService;
 
     @Autowired
