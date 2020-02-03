@@ -20,7 +20,7 @@ class Transport extends React.Component {
 
                 <div className="d-flex justify-content-around mb-2">
                 <FontAwesomeIcon icon={faTrash} onClick={(e) => {CommonRequests.deleteTransport(this.props.id)  }}/>
-                <FontAwesomeIcon icon={faEdit} />
+                <FontAwesomeIcon icon={faEdit} onClick={(e) => {window.location.assign('/transports/' + this.props.id + '/update');  }}/>
                 </div>
             </div>
         );

@@ -21,13 +21,22 @@ class InputRoute extends React.Component {
             arrNumber: null,
             depDateTime: null,
             arrDateTime: null,
+            route: null,
         }
     }
 
     componentDidMount() {
         CommonRequests.getAllTransports()
             .then(res => {
-                this.setState({ transports: res })
+                CommonRequests.getRoute(this.props.match.params.id)
+                .then(result => {
+                    this.setState({ transports: res, route: result, transport: result.transport, 
+                        depCountry: result.departureAddress.country, depCity: result.departureAddress.city, 
+                        depStreet: result.departureAddress.street, depNumber: result.departureAddress.number, 
+                        arrCountry: result.arrivalAddress.country, arrCity: result.arrivalAddress.city,
+                        arrStreet: result.arrivalAddress.street, arrNumber: result.arrivalAddress.number, 
+                        depDateTime: result.departureDateTime, arrDateTime: result.arrivalDateTime})
+                })
             });
     }
 
@@ -82,7 +91,7 @@ class InputRoute extends React.Component {
     }
 
     onclick() {
-        CommonRequests.addRoute(this.state.depCountry, this.state.depCity, this.state.depStreet, this.state.depNumber, this.state.arrCountry, this.state.arrCity, this.state.arrStreet, this.state.arrNumber, this.state.depDateTime, this.state.arrDateTime, this.state.transport);
+        CommonRequests.updateRoute(this.props.match.params.id, this.state.depCountry, this.state.depCity, this.state.depStreet, this.state.depNumber, this.state.arrCountry, this.state.arrCity, this.state.arrStreet, this.state.arrNumber, this.state.depDateTime, this.state.arrDateTime, this.state.transport);
         window.location.assign('/routes');
     }
 
