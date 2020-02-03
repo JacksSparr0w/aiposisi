@@ -1,7 +1,7 @@
 import React from 'react';
 import CommonRequests from '../../requests/commonRequests';
 
-class InputTransport extends React.Component {
+class UpdateTransport extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -16,12 +16,10 @@ class InputTransport extends React.Component {
     componentDidMount() {
         CommonRequests.getAllTypes()
             .then(res => {
-                if (this.props.match.params.id) {
-                    CommonRequests.getTransport(this.props.match.params.id)
-                        .then(result => {
-                            this.setState({ types: res, transport: result, capacity: result.capacity, type: result.type, name: result.name })
-                        })
-                } else this.setState({ types: res })
+                CommonRequests.getTransport(this.props.match.params.id)
+                .then(result => {
+                    this.setState({types: res , transport: result, capacity: result.capacity, type: result.type, name: result.name})
+                })
             });
     }
 
@@ -50,11 +48,7 @@ class InputTransport extends React.Component {
     }
 
     onclick() {
-        if (this.props.match.params.id != null) {
-            CommonRequests.updateTransport(this.props.match.params.id, this.state.type, this.state.capacity, this.state.name);
-
-        } else CommonRequests.addTransport(this.state.type, this.state.capacity, this.state.name);
-
+        CommonRequests.updateTransport(this.props.match.params.id, this.state.type, this.state.capacity, this.state.name);
         window.location.assign('/transports');
     }
 
@@ -96,4 +90,4 @@ class InputTransport extends React.Component {
     }
 }
 
-export default InputTransport;
+export default UpdateTransport;

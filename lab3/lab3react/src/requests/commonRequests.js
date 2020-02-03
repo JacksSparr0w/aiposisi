@@ -24,6 +24,12 @@ const getType = (input_id) => {
     })
 }
 
+const getRoute = (input_id) => {
+    return asyncAPI('getJSON', {
+        url: `/routes/` + input_id,
+    })
+}
+
 const getTransport = (input_id) => {
     return asyncAPI('getJSON', {
         url: `/transports/` + input_id,
@@ -49,7 +55,7 @@ const updateTransport = (input_id, input_type, input_capacity, input_name) => {
         name: input_name,        
     }
     return asyncAPI('postJSON', {
-        url: `/transports/`+ input_id + '/update',
+        url: `/transports/`+ input_id + `/update`,
         data: action,
     })
 }
@@ -67,12 +73,8 @@ const addTransport = (input_type, input_capacity, input_name) => {
 }
 
 const watchUserRoutes = (input_login) => {
-    const action = {
-        login: input_login,       
-    }
-    return asyncAPI('postJSON', {
-        url: `/users/watchRoutes`,
-        data: action,
+    return asyncAPI('getJSON', {
+        url: `/users/` + input_login + `/watchRoutes`,
     })
 }
 
@@ -100,6 +102,30 @@ const addRoute = (input_d_country, input_d_city, input_d_street, input_d_number,
     })
 }
 
+const updateRoute = (input_id, input_d_country, input_d_city, input_d_street, input_d_number, input_country, input_city, input_street, input_number, input_d_date_time, input_date_time, input_transport) => {
+    const action = {
+        departureAddress: {
+            country: input_d_country,
+            city: input_d_city,
+            street: input_d_street,
+            number: input_d_number,
+        },
+        arrivalAddress: {
+            country: input_country,
+            city: input_city,
+            street: input_street,
+            number: input_number,
+        },
+        departureDateTime: input_d_date_time,
+        arrivalDateTime: input_date_time,
+        transport : input_transport       
+    }
+    return asyncAPI('postJSON', {
+        url: `/routes/` + input_id + '/update',
+        data: action,
+    })
+}
+
 const joinRoute = (input_route, input_login) => {
     const action = {
         login: input_login,       
@@ -107,6 +133,12 @@ const joinRoute = (input_route, input_login) => {
     return asyncAPI('postJSON', {
         url: `/routes/` + input_route + '/join',
         data: action,
+    })
+}
+
+const existByLogin = (input_login) => {
+    return asyncAPI('getJSON', {
+        url: `/users/` + input_login,
     })
 }
 
@@ -123,5 +155,8 @@ export default {
     updateTransport,
     joinRoute,
     getType,
-    getTransport
+    getTransport,
+    existByLogin,
+    updateRoute,
+    getRoute
 }

@@ -9,6 +9,7 @@ class Home extends React.Component {
             <div className="d-flex justify-content-around">
                 <button type="button" onClick={(e) => { window.location.assign('/routes'); }} className="btn btn-primary m-3">Routes</button>
                 <button type="button" onClick={(e) => { window.location.assign('/transports'); }} className="btn btn-primary m-3">Transport</button>
+                <button type="button" onClick={(e) => { window.location.assign('/users/login'); }} className="btn btn-primary m-3">My routes</button>
             </div>
             </div>
 

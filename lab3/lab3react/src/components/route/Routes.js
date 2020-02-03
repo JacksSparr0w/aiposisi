@@ -28,7 +28,7 @@ class Routes extends React.Component {
     
       getArr(arr) {
         if (arr) {
-          return arr.map((el) => <Route departureAddress={el.departureAddress.country + ' ' + el.departureAddress.city} arrivalAddress={el.arrivalAddress.country + ' ' + el.arrivalAddress.city} id={el.id} depDateTime={el.departureDateTime} arrDateTime={el.arrivalDateTime} freeSeats={el.freeSeats} transportName={el.transport.name} transportType={el.transport.type.description}/>);
+          return arr.map((el) => <Route departureAddress={el.departureAddress.country + ' ' + el.departureAddress.city} arrivalAddress={el.arrivalAddress.country + ' ' + el.arrivalAddress.city} id={el.id} depDateTime={el.departureDateTime} arrDateTime={el.arrivalDateTime} freeSeats={el.freeSeats} transportName={el.transport.name} transportType={el.transport.type.description} join={true}/>);
         }
       }
 
