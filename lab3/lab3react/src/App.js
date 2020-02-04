@@ -7,7 +7,7 @@ import MyRoutes from './components/route/MyRoutes';
 import TransportList from './components/transport/TransportList';
 import InputTransport from './components/transport/InputTransport';
 import InputRoute from './components/route/InputRoute';
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 
 function App() {
@@ -17,6 +17,7 @@ function App() {
       <div className="App">
         <header className="App-header">
           <div className="d-flex justify-content-around">
+            <Link className="btn btn-primary m-3" to="/routes">darow</Link>
             <button type="button" onClick={(e) => { window.location.assign('/routes'); }} className="btn btn-primary m-3">Routes</button>
             <button type="button" onClick={(e) => { window.location.assign('/transports'); }} className="btn btn-primary m-3">Transport</button>
             <button type="button" onClick={(e) => { window.location.assign('/users/login'); }} className="btn btn-primary m-3">My routes</button>
