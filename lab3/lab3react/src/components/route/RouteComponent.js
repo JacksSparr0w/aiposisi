@@ -8,8 +8,7 @@ import { BrowserRouter as Link } from "react-router-dom";
 class RouteComponent extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-        }
+        this.state = {}
     }
 
     // onclick(){
@@ -24,8 +23,12 @@ class RouteComponent extends React.Component {
             return <div>
 
                 <div className="d-flex justify-content-around mb-4">
-                    <FontAwesomeIcon className="m-2" icon={faTrash} onClick={(e) => { CommonRequests.deleteRoute(this.props.id) }} />
+                    <FontAwesomeIcon className="m-2" icon={faTrash} onClick={(e) => { 
+                        CommonRequests.deleteRoute(this.props.id);
+                        this.props.update();
+                    }} />
                     <button type="button" onClick={(e) => { window.location.assign('/routes/' + this.props.id + '/join'); }} className="btn btn-primary">Join</button>
+                    
                     {/* <Link type="button" to="/routes/${this.props.id}/join" className="btn btn-primary m-3">Join</Link> */}
                     <FontAwesomeIcon className="m-2" icon={faEdit} onClick={(e) => {window.location.assign('/routes/' + this.props.id + '/update');  }}/>
                 </div>

@@ -19,7 +19,7 @@ class Routes extends React.Component {
       });
   }
 
-  componentWillUpdate() {
+  update() {
     CommonRequests.getAllRoutes()
       .then(res => {
         this.setState({ routes: res})
@@ -38,7 +38,8 @@ class Routes extends React.Component {
         freeSeats={el.freeSeats}
         transportName={el.transport.name}
         transportType={el.transport.type.description}
-        join />);
+        update={this.update}
+        join/>);
     }
   }
 
