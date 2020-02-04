@@ -17,10 +17,9 @@ function App() {
       <div className="App">
         <header className="App-header">
           <div className="d-flex justify-content-around">
-            <Link className="btn btn-primary m-3" to="/routes">darow</Link>
-            <button type="button" onClick={(e) => { window.location.assign('/routes'); }} className="btn btn-primary m-3">Routes</button>
-            <button type="button" onClick={(e) => { window.location.assign('/transports'); }} className="btn btn-primary m-3">Transport</button>
-            <button type="button" onClick={(e) => { window.location.assign('/users/login'); }} className="btn btn-primary m-3">My routes</button>
+            <Link type="button" to='/routes' className="btn btn-primary m-3">Routes</Link>
+            <Link type="button" to='/transports' className="btn btn-primary m-3">Transports</Link>
+            <Link type="button" to='/users/login' className="btn btn-primary m-3">My Routes</Link>
           </div>
           <Route path="/" exact component={Home} />
           <Route strict path="/routes" exact component={Routes} />

@@ -3,13 +3,21 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import CommonRequests from '../../requests/commonRequests';
+import { BrowserRouter as Link } from "react-router-dom";
 
-class Route extends React.Component {
+class RouteComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
         }
     }
+
+    // onclick(){
+    //     CommonRequests.getAllRoutes()
+    //     .then(res => {
+    //       this.setState({ routes: res})
+    //     });
+    // }
 
     getOpportunities() {
         if (this.props.join == true) {
@@ -18,6 +26,7 @@ class Route extends React.Component {
                 <div className="d-flex justify-content-around mb-4">
                     <FontAwesomeIcon className="m-2" icon={faTrash} onClick={(e) => { CommonRequests.deleteRoute(this.props.id) }} />
                     <button type="button" onClick={(e) => { window.location.assign('/routes/' + this.props.id + '/join'); }} className="btn btn-primary">Join</button>
+                    {/* <Link type="button" to="/routes/${this.props.id}/join" className="btn btn-primary m-3">Join</Link> */}
                     <FontAwesomeIcon className="m-2" icon={faEdit} onClick={(e) => {window.location.assign('/routes/' + this.props.id + '/update');  }}/>
                 </div>
                 </div>
@@ -59,4 +68,4 @@ class Route extends React.Component {
     }
 }
 
-export default Route;
+export default RouteComponent;

@@ -1,5 +1,4 @@
 import React from 'react';
-import InputAddress from './InputAddress'
 import 'moment/locale/it.js';
 import { DatePicker, DatePickerInput } from 'rc-datepicker';
 import 'rc-datepicker/lib/style.css';
