@@ -19,7 +19,7 @@ class TransportList extends React.Component {
       });
   }
 
-  componentWillUpdate() {
+  update = () => {
     CommonRequests.getAllTransports()
       .then(res => {
         this.setState({ transports: res })
@@ -28,7 +28,13 @@ class TransportList extends React.Component {
 
   getArr(arr) {
     if (arr) {
-      return arr.map((el) => <Transport name={el.name} capacity={el.capacity} id={el.id} type={el.type.description} />);
+      return arr.map((el) => <Transport
+        name={el.name}
+        capacity={el.capacity}
+        id={el.id}
+        type={el.type.description}
+        update={this.update}
+      />);
     }
   }
 
@@ -41,7 +47,7 @@ class TransportList extends React.Component {
       <div className="container row">
         {this.getArr(transports)}
 
-        <div onClick={(e) => { window.location.assign('/transports/add'); }} className="card addCard">
+        <div onClick={() => { window.location.assign('/transports/add'); }} className="card addCard">
           <FontAwesomeIcon icon={faPlus} size="8x" />
         </div>
 

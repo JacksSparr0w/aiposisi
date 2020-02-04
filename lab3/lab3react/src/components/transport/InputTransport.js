@@ -1,6 +1,6 @@
 import React from 'react';
 import CommonRequests from '../../requests/commonRequests';
-import { BrowserRouter as Link } from "react-router-dom";
+import { BrowserRouter, Link } from "react-router-dom";
 
 
 class InputTransport extends React.Component {
@@ -57,7 +57,7 @@ class InputTransport extends React.Component {
 
         } else CommonRequests.addTransport(this.state.type, this.state.capacity, this.state.name);
 
-       // window.location.assign('/transports');
+       window.location.assign('/transports');
     }
 
     render() {
@@ -90,7 +90,6 @@ class InputTransport extends React.Component {
                             </div>
                             <input type="number" min="0" onInput={this.capacityChange.bind(this)} className="form-control" aria-label="Capacity" aria-describedby="capacity" />
                         </div>
-                        {/* <Link type="button" to='/transports' className="btn btn-outline-success p-2" onClick={this.onclick()} > Save </Link> */}
 
                         <button className="btn btn-outline-success p-2" onClick={(e) => { this.onclick(); }} type="button">Save</button>
                     </div>

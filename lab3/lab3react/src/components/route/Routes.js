@@ -15,18 +15,16 @@ class Routes extends React.Component {
   componentDidMount() {
     CommonRequests.getAllRoutes()
       .then(res => {
-        this.setState({ routes: res})
+        this.setState({ routes: res })
       });
   }
 
-  update() {
+  update = () => {
     CommonRequests.getAllRoutes()
       .then(res => {
         this.setState({ routes: res})
       });
   }
-
-  //передавать функцию для удаления и апдейта
 
   getArr(arr) {
     if (arr) {

@@ -7,11 +7,11 @@ import CommonRequests from '../../requests/commonRequests';
 class Transport extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-        }
+        this.state = {}
       }
 
     render() {
+        const { update } = this.props;
         return (
             <div className="card d-flex justify-content-around">
                 <h4>{this.props.name}</h4>
@@ -19,9 +19,12 @@ class Transport extends React.Component {
                 <strong>Capacity: {this.props.capacity}</strong>
 
                 <div className="d-flex justify-content-around mb-2">
-                <FontAwesomeIcon icon={faTrash} onClick={(e) => {CommonRequests.deleteTransport(this.props.id)  }}/>
+                <FontAwesomeIcon icon={faTrash} onClick={() => {
+                    CommonRequests.deleteTransport(this.props.id);
+                    update();
+                }}/>
 
-                <FontAwesomeIcon icon={faEdit} onClick={(e) => {window.location.assign('/transports/' + this.props.id + '/update');  }}/>
+                <FontAwesomeIcon icon={faEdit} onClick={() => {window.location.assign('/transports/' + this.props.id + '/update');  }}/>
                 </div>
             </div>
         );

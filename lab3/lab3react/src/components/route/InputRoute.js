@@ -119,7 +119,6 @@ class InputRoute extends React.Component {
                             <div className="col-6">
                                 <div className="container">
                                     <label>Departure address</label>
-                                    {/* передать сюда что за адрес (departure/arrival) и отобразить */}
                                     <div className="input-group mb-3">
                                         <div className="input-group-prepend">
                                             <span className="input-group-text" id="country">Country</span>
@@ -157,7 +156,6 @@ class InputRoute extends React.Component {
                             <div className="col-6">
                                 <div className="container">
                                     <label>Arrival address</label>
-                                    {/* передать сюда что за адрес (departure/arrival) и отобразить */}
                                     <div className="input-group mb-3">
                                         <div className="input-group-prepend">
                                             <span className="input-group-text" id="arrcountry">Country</span>

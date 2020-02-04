@@ -6,7 +6,6 @@ class Home extends React.Component {
         return (
             <div>
             <label>You are welcome!</label>
-            
             </div>
 
         );
