@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import CommonRequests from '../../requests/commonRequests';
+import history from '../../history';
 
 class Transport extends React.Component {
     constructor(props) {
@@ -24,7 +25,7 @@ class Transport extends React.Component {
                     update();
                 }}/>
 
-                <FontAwesomeIcon icon={faEdit} onClick={() => {window.location.assign('/transports/' + this.props.id + '/update');  }}/>
+                <FontAwesomeIcon icon={faEdit} onClick={() => {this.props.history.push('/transports/' + this.props.id + '/update');  }}/>
                 </div>
             </div>
         );

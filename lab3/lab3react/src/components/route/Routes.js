@@ -37,6 +37,7 @@ class Routes extends React.Component {
         transportName={el.transport.name}
         transportType={el.transport.type.description}
         update={this.update}
+        {...this.props}
         join/>);
     }
   }
@@ -63,7 +64,7 @@ class Routes extends React.Component {
                     join
                   />
                 ))} */}
-        <div onClick={(e) => { window.location.assign('/routes/add'); }} className="card addCard">
+        <div onClick={(e) => { this.props.history.push('/routes/add'); }} className="card addCard">
           <FontAwesomeIcon icon={faPlus} size="8x" />
         </div>
       </div>

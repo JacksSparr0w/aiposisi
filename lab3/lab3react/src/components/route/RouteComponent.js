@@ -22,7 +22,7 @@ class RouteComponent extends React.Component {
                         update();
                     }} />
                     <Link type="button" to={`/routes/${this.props.id}/join`} className="btn btn-primary m-3">Join</Link>
-                    <FontAwesomeIcon className="m-2" icon={faEdit} onClick={(e) => {window.location.assign('/routes/' + this.props.id + '/update');  }}/>
+                    <FontAwesomeIcon className="m-2" icon={faEdit} onClick={(e) => {this.props.history.push('/routes/' + this.props.id + '/update');  }}/>
                 </div>
                 </div>
             )

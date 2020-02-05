@@ -1,5 +1,6 @@
 import React from 'react';
 import CommonRequests from '../requests/commonRequests';
+import history from '../history';
 
 class Login extends React.Component {
   constructor(props) {
@@ -17,14 +18,14 @@ class Login extends React.Component {
   onclick() {
     if (this.props.match.params.id) {
       CommonRequests.joinRoute(this.props.match.params.id, this.state.login); 
-      window.location.assign('/routes');
+      this.props.history.push('/routes');
     } else {
       CommonRequests.existByLogin(this.state.login)
         .then(res => {
           if (res == true) {
-            window.location.assign('/users/' + this.state.login + '/watchRoutes');
+            this.props.history.push('/users/' + this.state.login + '/watchRoutes');
           } else {
-            window.location.assign('/');
+            this.props.history.push('/');
           }
         });
     }

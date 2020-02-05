@@ -94,7 +94,7 @@ class InputRoute extends React.Component {
         if (this.props.match.params.id) {
             CommonRequests.updateRoute(this.props.match.params.id, this.state.depCountry, this.state.depCity, this.state.depStreet, this.state.depNumber, this.state.arrCountry, this.state.arrCity, this.state.arrStreet, this.state.arrNumber, this.state.depDateTime, this.state.arrDateTime, this.state.transport);
         } else CommonRequests.addRoute(this.state.depCountry, this.state.depCity, this.state.depStreet, this.state.depNumber, this.state.arrCountry, this.state.arrCity, this.state.arrStreet, this.state.arrNumber, this.state.depDateTime, this.state.arrDateTime, this.state.transport);
-        window.location.assign('/routes');
+        this.props.history.push('/routes');
     }
 
     render() {

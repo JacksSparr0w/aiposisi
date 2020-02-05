@@ -8,12 +8,12 @@ import TransportList from './components/transport/TransportList';
 import InputTransport from './components/transport/InputTransport';
 import InputRoute from './components/route/InputRoute';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-
+import history from './history';
 
 function App() {
 
   return (
-    <Router>
+    <Router history={history}>
       <div className="App">
         <header className="App-header">
           <div className="d-flex justify-content-around">

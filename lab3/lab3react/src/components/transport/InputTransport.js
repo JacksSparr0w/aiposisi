@@ -1,6 +1,5 @@
 import React from 'react';
 import CommonRequests from '../../requests/commonRequests';
-import { BrowserRouter, Link } from "react-router-dom";
 
 
 class InputTransport extends React.Component {
@@ -57,7 +56,7 @@ class InputTransport extends React.Component {
 
         } else CommonRequests.addTransport(this.state.type, this.state.capacity, this.state.name);
 
-       window.location.assign('/transports');
+       this.props.history.push('/transports');
     }
 
     render() {
