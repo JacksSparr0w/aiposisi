@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,6 +26,7 @@ public class TransportController {
         this.typeService = typeService;
     }
 
+    @Transactional
     @PostMapping(value = "/add")
     public Transport addNewTransport(@RequestBody Transport transport) {
         Optional<Type> transportType = typeService.findById(transport.getType().getId());
@@ -41,7 +43,7 @@ public class TransportController {
 
     @GetMapping(value = "/all")
     public List<Transport> allTransports(){
-//        log.info("all transports");
+        log.info("all transports");
         return transportService.findAll();
     }
 
@@ -50,12 +52,14 @@ public class TransportController {
         return transportService.findById(id).get();
     }
 
+    @Transactional
     @DeleteMapping(value = "/{id}/delete")
     public void deleteTransport(@PathVariable(value = "id") Transport transport) {
         log.info("delete transport with id =" + transport.getId());
         transportService.findById(transport.getId()).ifPresent(transportService::delete);
     }
 
+    @Transactional
     @PostMapping(value = "/{id}/update")
     public Transport updateTransport(@PathVariable(value = "id") Integer id, @RequestBody Transport transport) {
         Optional<Type> transportType = typeService.findById(transport.getType().getId());

@@ -1,8 +1,6 @@
 package com.aioisisi.lab2.controller.type;
 
-import com.aioisisi.lab2.controller.transport.TransportController;
 import com.aioisisi.lab2.entity.Type;
-import com.aioisisi.lab2.service.TransportService;
 import com.aioisisi.lab2.service.TypeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

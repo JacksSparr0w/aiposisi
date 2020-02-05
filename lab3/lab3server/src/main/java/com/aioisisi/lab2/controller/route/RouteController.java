@@ -1,6 +1,5 @@
 package com.aioisisi.lab2.controller.route;
 
-import com.aioisisi.lab2.entity.Address;
 import com.aioisisi.lab2.entity.Route;
 import com.aioisisi.lab2.entity.User;
 import com.aioisisi.lab2.service.AddressService;
@@ -12,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,41 +34,37 @@ public class RouteController {
 
     @GetMapping(value = "/all")
     public List<Route> allRoutes() {
-//        log.info("all routes");
+        log.info("all routes");
         return routeService.findAll();
     }
 
     @GetMapping(value = "/{id}")
     public Route getById(@PathVariable Integer id) {
-//        log.info("all routes");
+        log.info("get route with id = " + id);
         return routeService.findById(id).get();
     }
 
+    @Transactional
     @PostMapping(value = "/add")
     public Route addNewRoute(@RequestBody Route route) {
-//        route.setArrivalDateTime(arrivalDT);
-//        route.setDepartureDateTime(departureDT);
-        //todo возможно надо будет добавить дату если не будет работать
         route.setArrivalAddress(addressService.save(route.getArrivalAddress()));
         route.setDepartureAddress(addressService.save(route.getDepartureAddress()));
-//        route.setArrivalAddress(addressService.save(arrival));
-//        route.setDepartureAddress(addressService.save(departure));
         routeService.save(route);
 
         log.info("add new route");
         return route;
     }
 
+    @Transactional
     @DeleteMapping(value = "/{id}/delete")
     public void deleteRoute(@PathVariable("id") Route route) {
         log.info("delete route with id =" + route.getId());
         routeService.findById(route.getId()).ifPresent(routeService::delete);
     }
 
+    @Transactional
     @PostMapping(value = "/{id}/update")
     public Route updateRoute(@PathVariable(value = "id") Integer id, @RequestBody Route route) {
-//        route.setArrivalDateTime(arrivalDT);
-//        route.setDepartureDateTime(departureDT);
         route.setArrivalAddress(addressService.save(route.getArrivalAddress()));
         route.setDepartureAddress(addressService.save(route.getDepartureAddress()));
         route.setUsers(routeService.findUsersByRoute(route.getId()));
@@ -79,11 +75,9 @@ public class RouteController {
         return route;
     }
 
+    @Transactional
     @PostMapping(value = "/{route_id}/join")
     public User addUserToRoute(@RequestBody User user, @PathVariable(value = "route_id") Route route) {
-//        Optional<Route> routeOptional = routeService.findById(user.getRouteIdForJoin());
-//        if (routeOptional.isPresent()) {
-//            Route route = routeOptional.get();
         User u = findUser(user);
         if (route.isNotJoined(u) && route.addUser(u)) {
             log.info("user with id = " + u.getId() + " joined the route with id = " + route.getId());
@@ -92,11 +86,6 @@ public class RouteController {
             log.info("maybe there no free seats or you join this also");
         }
         return u;
-
-//        } else {
-//            log.info("there is no such route");
-//        }
-//        return "redirect:/routes/all";
     }
 
     private User findUser(User user) {
