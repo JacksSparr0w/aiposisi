@@ -14,9 +14,9 @@ public class JavaHTTPServer implements Runnable {
     private static final Logger logger = LogManager.getLogger(JavaHTTPServer.class);
 
     private static final String ROOT = "/sharedFiles";
-    private static final String DEFAULT_FILE = "/index.html";
-    private static final String FILE_NOT_FOUND = "/404.html";
-    private static final String METHOD_NOT_SUPPORTED = "/501.html";
+    private static final String DEFAULT_FILE = "index.html";
+    private static final String FILE_NOT_FOUND = "404.html";
+    private static final String METHOD_NOT_SUPPORTED = "501.html";
 
     private Socket connect;
 
@@ -40,11 +40,13 @@ public class JavaHTTPServer implements Runnable {
             StringTokenizer parse = new StringTokenizer(input);
 
             String method = parse.nextToken().toUpperCase();
+            logger.log(Level.INFO, "Request method: " + method);
             fileRequested = parse.nextToken().toLowerCase();
-
             Optional<RequestType> requestType = RequestType.of(method);
-            if (requestType.isPresent()) {
-                logger.log(Level.INFO, "Request method: " + requestType.get().name());
+
+            if (!requestType.isPresent()) {
+                methodNotSupported(method);
+            } else {
                 switch (requestType.get()) {
                     case GET:
                         processGet(fileRequested);
@@ -53,12 +55,9 @@ public class JavaHTTPServer implements Runnable {
                         processPost();
                     case OPTIONS:
                         processOptions();
-                        break;
-                    default:
-                        methodNotSupported(requestType.get());
                 }
+                logger.log(Level.INFO, "File " + fileRequested + " returned");
             }
-            logger.log(Level.INFO, "File " + fileRequested + " returned");
         } catch (FileNotFoundException fnfe) {
             try {
                 logger.log(Level.WARN, "File:" + fileRequested + " not found, load " + FILE_NOT_FOUND);
@@ -82,6 +81,7 @@ public class JavaHTTPServer implements Runnable {
     }
 
     private void processGet(String fileRequested) throws IOException {
+        logger.log(Level.INFO, "GET request was accepted");
         if (fileRequested.endsWith("/")) {
             fileRequested += DEFAULT_FILE;
         }
@@ -92,29 +92,29 @@ public class JavaHTTPServer implements Runnable {
     }
 
     private void processPost() throws IOException {
-        createResponse(HTTPCodes.CREATED, ContentType.PLAIN, 0, new byte[]{});
         logger.log(Level.INFO, "POST request was accepted");
+        createResponse(HTTPCodes.CREATED, ContentType.PLAIN, 0, new byte[]{});
     }
 
     private void processOptions() throws IOException {
+        logger.log(Level.INFO, "OPTIONS request was accepted");
+
         InputStream inputStream = findFile("options.txt", false);
         createResponse(HTTPCodes.OK, ContentType.PLAIN, inputStream.available(), readFileData(inputStream));
     }
 
-    private void methodNotSupported(RequestType type) throws IOException {
+    private void methodNotSupported(String method) throws IOException {
+        logger.log(Level.WARN, "Unknown method: " + method);
         InputStream inputStream = findFile(METHOD_NOT_SUPPORTED, false);
         createResponse(HTTPCodes.NOT_IMPLEMENTED, ContentType.HTML, inputStream.available(), readFileData(inputStream));
-        logger.log(Level.WARN, "Unknown method: " + type);
     }
 
     private byte[] readFileData(InputStream inputStream) throws IOException {
-        FileInputStream fileIn = null;
         byte[] fileData = new byte[inputStream.available()];
         try {
             inputStream.read(fileData);
         } finally {
-            if (fileIn != null)
-                fileIn.close();
+            inputStream.close();
         }
         logger.log(Level.INFO, "Read data from request file");
         return fileData;
@@ -135,11 +135,13 @@ public class JavaHTTPServer implements Runnable {
     }
 
     private InputStream findFile(String fileName, boolean clientFile) throws FileNotFoundException {
-        if (clientFile){
+        if (clientFile) {
             fileName = ROOT + fileName;
+        } else {
+            fileName = "/" + fileName;
         }
         InputStream inputStream = this.getClass().getResourceAsStream(fileName);
-        if (inputStream == null){
+        if (inputStream == null) {
             throw new FileNotFoundException();
         }
         return inputStream;
@@ -155,6 +157,6 @@ public class JavaHTTPServer implements Runnable {
         out.flush();
         dataOut.write(fileData, 0, fileLength);
         dataOut.flush();
-        logger.log(Level.INFO, "Creating header of response");
+        logger.log(Level.INFO, "Creating header of response with code " + code.getCode());
     }
 }
