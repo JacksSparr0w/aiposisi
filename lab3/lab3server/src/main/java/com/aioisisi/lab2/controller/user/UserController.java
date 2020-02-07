@@ -2,11 +2,15 @@ package com.aioisisi.lab2.controller.user;
 
 import com.aioisisi.lab2.entity.Route;
 import com.aioisisi.lab2.entity.User;
+import com.aioisisi.lab2.exception.ResourceNotFoundException;
+import com.aioisisi.lab2.security.CurrentUser;
+import com.aioisisi.lab2.security.UserPrincipal;
 import com.aioisisi.lab2.service.RouteService;
 import com.aioisisi.lab2.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -36,6 +40,13 @@ public class UserController {
             log.info("no such user, sorry");
             return null;
         }
+    }
+
+    @GetMapping("/me")
+    @PreAuthorize("hasRole('USER')")
+    public User getCurrentUser(@CurrentUser UserPrincipal userPrincipal) {
+        return userService.findById(userPrincipal.getId())
+                .orElseThrow(() -> new ResourceNotFoundException("User", "id", userPrincipal.getId()));
     }
 
     @GetMapping(value = "/{login}")
