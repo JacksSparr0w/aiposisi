@@ -7,7 +7,7 @@ import MyRoutes from './components/route/MyRoutes';
 import TransportList from './components/transport/TransportList';
 import InputTransport from './components/transport/InputTransport';
 import InputRoute from './components/route/InputRoute';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { Router, Route, Link } from "react-router-dom";
 import history from './history';
 
 function App() {

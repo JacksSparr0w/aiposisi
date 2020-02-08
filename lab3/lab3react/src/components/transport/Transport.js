@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import CommonRequests from '../../requests/commonRequests';
-import history from '../../history';
 
 class Transport extends React.Component {
     constructor(props) {
@@ -20,9 +19,8 @@ class Transport extends React.Component {
                 <strong>Capacity: {this.props.capacity}</strong>
 
                 <div className="d-flex justify-content-around mb-2">
-                <FontAwesomeIcon icon={faTrash} onClick={() => {
-                    CommonRequests.deleteTransport(this.props.id);
-                    update();
+                <FontAwesomeIcon icon={faTrash}  onClick={() => {
+                    update(this.props.id);
                 }}/>
 
                 <FontAwesomeIcon icon={faEdit} onClick={() => {this.props.history.push('/transports/' + this.props.id + '/update');  }}/>

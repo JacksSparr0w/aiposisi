@@ -19,8 +19,8 @@ class TransportList extends React.Component {
       });
   }
 
-  update = () => {
-    CommonRequests.getAllTransports()
+  update = (input_id) => {
+    CommonRequests.deleteTransport(input_id)
       .then(res => {
         this.setState({ transports: res })
       });

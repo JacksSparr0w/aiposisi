@@ -18,8 +18,8 @@ class RouteComponent extends React.Component {
 
                 <div className="d-flex justify-content-around mb-4">
                     <FontAwesomeIcon className="m-2" icon={faTrash} onClick={(e) => { 
-                        CommonRequests.deleteRoute(this.props.id);
-                        update();
+                        // CommonRequests.deleteRoute(this.props.id);
+                        update(this.props.id);
                     }} />
                     <Link type="button" to={`/routes/${this.props.id}/join`} className="btn btn-primary m-3">Join</Link>
                     <FontAwesomeIcon className="m-2" icon={faEdit} onClick={(e) => {this.props.history.push('/routes/' + this.props.id + '/update');  }}/>
