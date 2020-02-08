@@ -3,6 +3,7 @@
 const { stringify } = JSON
 
 const headers = {
+    credentials: 'include',
     'Content-type': 'application/json',
     Accept: 'application/json;charset=UTF-8',
     'Access-Control-Allow-Origin': '*',
@@ -10,7 +11,7 @@ const headers = {
 
 headers.Authorization = 'Basic '// + authdata
 
- const apiPathUrl = 'http://localhost:8080';
+ const apiPathUrl = 'https://localhost:8443';
 
 const getFullUrl = (url, params) =>
     apiPathUrl + (url || '') + (params ? '?' + queryParams(params) : '')
