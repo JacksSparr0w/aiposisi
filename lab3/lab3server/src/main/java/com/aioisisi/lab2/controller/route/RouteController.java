@@ -57,9 +57,10 @@ public class RouteController {
 
     @Transactional
     @DeleteMapping(value = "/{id}/delete")
-    public void deleteRoute(@PathVariable("id") Route route) {
+    public List<Route> deleteRoute(@PathVariable("id") Route route) {
         log.info("delete route with id =" + route.getId());
         routeService.findById(route.getId()).ifPresent(routeService::delete);
+        return routeService.findAll();
     }
 
     @Transactional

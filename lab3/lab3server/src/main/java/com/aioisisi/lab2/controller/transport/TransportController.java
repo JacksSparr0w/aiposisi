@@ -54,9 +54,10 @@ public class TransportController {
 
     @Transactional
     @DeleteMapping(value = "/{id}/delete")
-    public void deleteTransport(@PathVariable(value = "id") Transport transport) {
+    public List<Transport> deleteTransport(@PathVariable(value = "id") Transport transport) {
         log.info("delete transport with id =" + transport.getId());
         transportService.findById(transport.getId()).ifPresent(transportService::delete);
+        return transportService.findAll();
     }
 
     @Transactional
