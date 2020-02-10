@@ -37,7 +37,12 @@ public class JavaHTTPServer implements Runnable {
             dataOut = new BufferedOutputStream(connect.getOutputStream());
 
             String input = in.readLine();
-            StringTokenizer parse = new StringTokenizer(input);
+            StringTokenizer parse;
+            try {
+                parse = new StringTokenizer(input);
+            } catch (NullPointerException e){
+                return;
+            }
 
             String method = parse.nextToken().toUpperCase();
             logger.log(Level.INFO, "Request method: " + method);
