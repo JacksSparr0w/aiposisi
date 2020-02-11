@@ -93,7 +93,7 @@ public class JavaHTTPServer implements Runnable {
         InputStream inputStream = findFile(fileRequested, true);
         ContentType content = getContentType(fileRequested);
         createResponse(HTTPCodes.OK, content, inputStream.available(), readFileData(inputStream));
-        logger.log(Level.INFO, "File " + fileRequested + " of type " + content + " returned");
+        logger.log(Level.INFO, "File " + fileRequested + " of type " + content.getText() + " returned");
     }
 
     private void processPost() throws IOException {
@@ -126,10 +126,8 @@ public class JavaHTTPServer implements Runnable {
     }
 
     private ContentType getContentType(String fileRequested) {
-        if (fileRequested.endsWith(".htm") || fileRequested.endsWith(".html"))
-            return ContentType.HTML;
-        else
-            return ContentType.PLAIN;
+        String fileExtension = fileRequested.substring(fileRequested.lastIndexOf(".")+1);
+        return ContentType.findByExtension(fileExtension);
     }
 
     private void fileNotFound(String fileRequested) throws IOException {
