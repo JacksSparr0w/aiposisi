@@ -6,6 +6,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.*;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.Date;
 import java.util.Optional;
 import java.util.StringTokenizer;
@@ -26,6 +27,13 @@ public class JavaHTTPServer implements Runnable {
 
     JavaHTTPServer(Socket connect) {
         this.connect = connect;
+        try {
+            connect.setKeepAlive(true);
+            connect.setSoTimeout(3000);
+        } catch (SocketException e) {
+            System.exit(0);
+        }
+
     }
 
     @Override
@@ -37,6 +45,7 @@ public class JavaHTTPServer implements Runnable {
             dataOut = new BufferedOutputStream(connect.getOutputStream());
 
             String input = in.readLine();
+            logger.log(Level.INFO, "Input is:\n" + input);
             StringTokenizer parse;
             try {
                 parse = new StringTokenizer(input);
@@ -92,7 +101,8 @@ public class JavaHTTPServer implements Runnable {
         }
         InputStream inputStream = findFile(fileRequested, true);
         ContentType content = getContentType(fileRequested);
-        createResponse(HTTPCodes.OK, content, inputStream.available(), readFileData(inputStream));
+        byte[] data = content.getReader().read(inputStream);
+        createResponse(HTTPCodes.OK, content, data.length, data);
         logger.log(Level.INFO, "File " + fileRequested + " of type " + content.getText() + " returned");
     }
 
@@ -103,27 +113,28 @@ public class JavaHTTPServer implements Runnable {
 
     private void processOptions() throws IOException {
         logger.log(Level.INFO, "OPTIONS request was accepted");
-
         InputStream inputStream = findFile("options.txt", false);
-        createResponse(HTTPCodes.OK, ContentType.PLAIN, inputStream.available(), readFileData(inputStream));
+        byte[] data = ContentType.PLAIN.getReader().read(inputStream);
+        createResponse(HTTPCodes.OK, ContentType.PLAIN, data.length, data);
     }
 
     private void methodNotSupported(String method) throws IOException {
         logger.log(Level.WARN, "Unknown method: " + method);
         InputStream inputStream = findFile(METHOD_NOT_SUPPORTED, false);
-        createResponse(HTTPCodes.NOT_IMPLEMENTED, ContentType.HTML, inputStream.available(), readFileData(inputStream));
+        byte[] data = ContentType.HTML.getReader().read(inputStream);
+        createResponse(HTTPCodes.NOT_IMPLEMENTED, ContentType.HTML, data.length, data);
     }
 
-    private byte[] readFileData(InputStream inputStream) throws IOException {
-        byte[] fileData = new byte[inputStream.available()];
-        try {
-            inputStream.read(fileData);
-        } finally {
-            inputStream.close();
-        }
-        logger.log(Level.INFO, "Read data from request file");
-        return fileData;
-    }
+//    private byte[] readFileData(InputStream inputStream) throws IOException {
+//        byte[] fileData = new byte[inputStream.available()];
+//        try {
+//            inputStream.read(fileData);
+//        } finally {
+//            inputStream.close();
+//        }
+//        logger.log(Level.INFO, "Read data from request file");
+//        return fileData;
+//    }
 
     private ContentType getContentType(String fileRequested) {
         String fileExtension = fileRequested.substring(fileRequested.lastIndexOf(".")+1);
@@ -132,7 +143,8 @@ public class JavaHTTPServer implements Runnable {
 
     private void fileNotFound(String fileRequested) throws IOException {
         InputStream inputStream = findFile(FILE_NOT_FOUND, false);
-        createResponse(HTTPCodes.NOT_FOUND, ContentType.HTML, inputStream.available(), readFileData(inputStream));
+        byte[] data = ContentType.HTML.getReader().read(inputStream);
+        createResponse(HTTPCodes.NOT_FOUND, ContentType.HTML, data.length, data);
         logger.log(Level.WARN, "File " + fileRequested + " not found");
 
     }
@@ -144,6 +156,7 @@ public class JavaHTTPServer implements Runnable {
             fileName = "/" + fileName;
         }
         InputStream inputStream = this.getClass().getResourceAsStream(fileName);
+        logger.log(Level.INFO, "requested path of the file is: " + this.getClass().getResource(fileName));
         if (inputStream == null) {
             throw new FileNotFoundException();
         }
@@ -160,6 +173,12 @@ public class JavaHTTPServer implements Runnable {
         out.flush();
         dataOut.write(fileData, 0, fileLength);
         dataOut.flush();
+        logger.log(Level.INFO, "type " + content.getExtension() + " size " + fileLength);
+        try {
+            Thread.sleep(fileLength / 100);
+        } catch (InterruptedException e) {
+
+        }
         logger.log(Level.INFO, "Creating header of response with code " + code.getCode());
     }
 }
