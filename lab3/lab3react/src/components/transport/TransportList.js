@@ -19,12 +19,26 @@ class TransportList extends React.Component {
       });
   }
 
+  componentWillMount() {
+    CommonRequests.getAllTransports()
+      .then(res => {
+        this.setState({ transports: res })
+      });
+  }
+
   update = (input_id) => {
     CommonRequests.deleteTransport(input_id)
       .then(res => {
         this.setState({ transports: res })
       });
   }
+
+  // updatenew = () => {
+  //   CommonRequests.getAllTransports()
+  //     .then(res => {
+  //       this.setState({ transports: res })
+  //     });
+  // }
 
   getArr(arr) {
     if (arr) {
@@ -34,6 +48,7 @@ class TransportList extends React.Component {
         id={el.id}
         type={el.type.description}
         update={this.update}
+        // updateNew={this.updatenew}
         {...this.props}
       />);
     }

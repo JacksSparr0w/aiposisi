@@ -19,6 +19,13 @@ class Routes extends React.Component {
       });
   }
 
+  componentWillMount() {
+    CommonRequests.getAllRoutes()
+      .then(res => {
+        this.setState({ routes: res })
+      });
+  }
+
   update = (input_id) => {
     CommonRequests.deleteRoute(input_id)
       .then(res => {

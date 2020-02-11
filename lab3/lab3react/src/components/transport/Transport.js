@@ -23,7 +23,10 @@ class Transport extends React.Component {
                     update(this.props.id);
                 }}/>
 
-                <FontAwesomeIcon icon={faEdit} onClick={() => {this.props.history.push('/transports/' + this.props.id + '/update');  }}/>
+                <FontAwesomeIcon icon={faEdit} onClick={() => {
+                    this.props.history.push('/transports/' + this.props.id + '/update'); 
+                    // updateNew();
+             }}/>
                 </div>
             </div>
         );
