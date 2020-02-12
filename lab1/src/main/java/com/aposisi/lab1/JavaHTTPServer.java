@@ -100,7 +100,7 @@ public class JavaHTTPServer implements Runnable {
             fileRequested += DEFAULT_FILE;
         }
         InputStream inputStream = findFile(fileRequested, true);
-        ContentType content = getContentType(fileRequested);
+        ContentType content = ContentType.findByFileName(fileRequested);
         byte[] data = content.getReader().read(inputStream);
         createResponse(HTTPCodes.OK, content, data.length, data);
         logger.log(Level.INFO, "File " + fileRequested + " of type " + content.getText() + " returned");
@@ -123,22 +123,6 @@ public class JavaHTTPServer implements Runnable {
         InputStream inputStream = findFile(METHOD_NOT_SUPPORTED, false);
         byte[] data = ContentType.HTML.getReader().read(inputStream);
         createResponse(HTTPCodes.NOT_IMPLEMENTED, ContentType.HTML, data.length, data);
-    }
-
-//    private byte[] readFileData(InputStream inputStream) throws IOException {
-//        byte[] fileData = new byte[inputStream.available()];
-//        try {
-//            inputStream.read(fileData);
-//        } finally {
-//            inputStream.close();
-//        }
-//        logger.log(Level.INFO, "Read data from request file");
-//        return fileData;
-//    }
-
-    private ContentType getContentType(String fileRequested) {
-        String fileExtension = fileRequested.substring(fileRequested.lastIndexOf(".")+1);
-        return ContentType.findByExtension(fileExtension);
     }
 
     private void fileNotFound(String fileRequested) throws IOException {
@@ -169,6 +153,8 @@ public class JavaHTTPServer implements Runnable {
         out.println("Date: " + new Date());
         out.println("Content-type: " + content.getText());
         out.println("Content-length: " + fileLength);
+        out.println("Access-Control-Allow-Origin: " + "*");
+        out.println("Access-Control-Allow-Methods: " + "GET, POST, DELETE, PUT");
         out.println();
         out.flush();
         dataOut.write(fileData, 0, fileLength);
