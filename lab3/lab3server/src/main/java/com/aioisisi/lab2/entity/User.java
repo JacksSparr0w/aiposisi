@@ -12,21 +12,31 @@ import java.util.Objects;
 @Data
 @Entity
 @Table (uniqueConstraints = {
-        @UniqueConstraint(columnNames = "login")
+        @UniqueConstraint(columnNames = "email")
 })
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column
-    private String login;
+    @Column(nullable = false)
+    private String name;
 
     @Transient
     private Integer routeIdForJoin;
 
+
+    @Email
+    @Column(nullable = false)
+    private String email;
+
+    private String imageUrl;
+
     @JsonIgnore
     private String password;
+
+    @Column(nullable = false)
+    private Boolean emailVerified = false;
 
     @NotNull
     @Enumerated(EnumType.STRING)
@@ -40,11 +50,11 @@ public class User {
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
         return Objects.equals(id, user.id) &&
-                Objects.equals(login, user.login);
+                Objects.equals(email, user.email);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, login);
+        return Objects.hash(id, email);
     }
 }

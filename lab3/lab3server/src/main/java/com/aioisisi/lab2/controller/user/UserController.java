@@ -31,7 +31,7 @@ public class UserController {
 
     @GetMapping(value = "/{login}/watchRoutes")
     public List<Route> getRoutesForUser(@PathVariable String login) {
-        Optional<User> userOptional = userService.findByLogin(login);
+        Optional<User> userOptional = userService.findByEmail(login);
         if (userOptional.isPresent()) {
             List<Route> routes = userService.findRoutesByUser(userOptional.get());
             log.info("find all routes for user");
@@ -50,8 +50,8 @@ public class UserController {
     }
 
     @GetMapping(value = "/{login}")
-    public Boolean existByLogin(@PathVariable String login) {
-        return userService.existsByLogin(login);
+    public Boolean existByEmail(@PathVariable String login) {
+        return userService.existsByEmail(login);
     }
 
 }

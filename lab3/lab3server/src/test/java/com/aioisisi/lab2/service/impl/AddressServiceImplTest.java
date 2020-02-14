@@ -81,10 +81,10 @@ public class AddressServiceImplTest {
         transportService.save(transport);
 
         vadim = new User();
-        vadim.setLogin("Vadim");
+        vadim.setEmail("Vadim");
 
         diana = new User();
-        diana.setLogin("Diana");
+        diana.setEmail("Diana");
 
         userService.save(vadim);
         userService.save(diana);

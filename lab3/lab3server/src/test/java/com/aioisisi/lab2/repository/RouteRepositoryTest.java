@@ -69,10 +69,10 @@ public class RouteRepositoryTest {
         transportRepository.save(transport);
 
         vadim = new User();
-        vadim.setLogin("Vadim");
+        vadim.setEmail("Vadim");
 
         diana = new User();
-        diana.setLogin("Diana");
+        diana.setEmail("Diana");
 
         userRepository.save(vadim);
         userRepository.save(diana);
@@ -144,6 +144,6 @@ public class RouteRepositoryTest {
 
     @Test
     public void checkSearchingByLogin() {
-        Assert.assertNotNull(userRepository.findByLogin("diana"));
+        Assert.assertNotNull(userRepository.findByEmail("diana"));
     }
 }

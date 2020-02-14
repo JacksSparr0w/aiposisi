@@ -89,7 +89,7 @@ public class RouteController {
     }
 
     private User findUser(User user) {
-        Optional<User> userOptional = userService.findByLogin(normalizeLogin(user.getLogin()));
+        Optional<User> userOptional = userService.findByEmail(normalizeLogin(user.getEmail()));
         return userOptional.orElseGet(() -> userService.save(user));
     }
 
