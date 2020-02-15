@@ -10,7 +10,7 @@ public enum ContentType {
     PLAIN("text/plain", "txt", new FileReader()),
     HTML("text/html", "html", new FileReader()),
     CSS("text/css", "css", new FileReader()),
-    JS("text/javascript", "js", new FileReader()),
+    JS("application/javascript", "js", new FileReader()),
     PNG("image/png", "png", new ImageReader()),
     JPEG("image/jpeg", "jpeg", new ImageReader()),
     SVG("image/svg+xml", "svg", new FileReader());

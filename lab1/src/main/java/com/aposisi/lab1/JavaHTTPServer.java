@@ -153,7 +153,7 @@ public class JavaHTTPServer implements Runnable {
         out.println("Date: " + new Date());
         out.println("Content-type: " + content.getText());
         out.println("Content-length: " + fileLength);
-        out.println("Access-Control-Allow-Origin: " + "*");
+        out.println("Access-Control-Allow-Origin: " + "localhost");
         out.println("Access-Control-Allow-Methods: " + "GET, POST, DELETE, PUT");
         out.println();
         out.flush();
