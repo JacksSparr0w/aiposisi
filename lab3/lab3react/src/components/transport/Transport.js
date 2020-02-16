@@ -4,6 +4,7 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import CommonRequests from '../../requests/commonRequests';
 import history from '../../history';
+import { deleteTransport } from '../../util/APIUtils';
 
 class Transport extends React.Component {
     constructor(props) {
@@ -21,7 +22,7 @@ class Transport extends React.Component {
 
                 <div className="d-flex justify-content-around mb-2">
                 <FontAwesomeIcon icon={faTrash} onClick={() => {
-                    CommonRequests.deleteTransport(this.props.id);
+                    deleteTransport(this.props.id);
                     update();
                 }}/>
 

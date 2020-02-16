@@ -3,6 +3,9 @@ import 'moment/locale/it.js';
 import { DatePicker, DatePickerInput } from 'rc-datepicker';
 import 'rc-datepicker/lib/style.css';
 import CommonRequests from '../../requests/commonRequests';
+import { addRoute } from '../../util/APIUtils';
+import { getCurrentTransport, getTransport } from '../../util/APIUtils';
+import { updateRoute, getCurrentRoute } from '../../util/APIUtils';
 
 class InputRoute extends React.Component {
     constructor(props) {
@@ -24,10 +27,10 @@ class InputRoute extends React.Component {
     }
 
     componentDidMount() {
-        CommonRequests.getAllTransports()
+        getTransport()
             .then(res => {
                 if (this.props.match.params.id) {
-                CommonRequests.getRoute(this.props.match.params.id)
+                getCurrentRoute(this.props.match.params.id)
                 .then(result => {
                     this.setState({ transports: res, route: result, transport: result.transport, 
                         depCountry: result.departureAddress.country, depCity: result.departureAddress.city, 
@@ -84,16 +87,37 @@ class InputRoute extends React.Component {
     }
 
     transportChange(event) {
-        CommonRequests.getTransport(event.target.value)
+        getCurrentTransport(event.target.value)
             .then(res => {
                 this.setState({ transport: res })
             })
     }
 
     onclick() {
+        const action = {
+            departureAddress: {
+                country: this.state.depCountry,
+                city: this.state.depCity,
+                street: this.state.depStreet,
+                number: this.state.depNumber,
+            },
+            arrivalAddress: {
+                country: this.state.arrCountry,
+                city: this.state.arrCity,
+                street: this.state.arrStreet,
+                number: this.state.arrNumber,
+            },
+            departureDateTime: this.state.depDateTime,
+            arrivalDateTime: this.state.arrDateTime,
+            transport : this.state.transport       
+        }
+    
+        // const routeRequest = Object.assign({}, this.state);
         if (this.props.match.params.id) {
-            CommonRequests.updateRoute(this.props.match.params.id, this.state.depCountry, this.state.depCity, this.state.depStreet, this.state.depNumber, this.state.arrCountry, this.state.arrCity, this.state.arrStreet, this.state.arrNumber, this.state.depDateTime, this.state.arrDateTime, this.state.transport);
-        } else CommonRequests.addRoute(this.state.depCountry, this.state.depCity, this.state.depStreet, this.state.depNumber, this.state.arrCountry, this.state.arrCity, this.state.arrStreet, this.state.arrNumber, this.state.depDateTime, this.state.arrDateTime, this.state.transport);
+            updateRoute(this.props.match.params.id, action);
+            // CommonRequests.updateRoute(this.props.match.params.id, this.state.depCountry, this.state.depCity, this.state.depStreet, this.state.depNumber, this.state.arrCountry, this.state.arrCity, this.state.arrStreet, this.state.arrNumber, this.state.depDateTime, this.state.arrDateTime, this.state.transport);
+        } else addRoute(action);
+        // CommonRequests.addRoute(this.state.depCountry, this.state.depCity, this.state.depStreet, this.state.depNumber, this.state.arrCountry, this.state.arrCity, this.state.arrStreet, this.state.arrNumber, this.state.depDateTime, this.state.arrDateTime, this.state.transport);
         this.props.history.push('/routes');
     }
 

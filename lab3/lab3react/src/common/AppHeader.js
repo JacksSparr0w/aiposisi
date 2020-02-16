@@ -7,9 +7,7 @@ class AppHeader extends Component {
         return (
             <header className="app-header">
                 <div className="container">
-                    <div className="app-branding">
-                        <Link to="/" className="app-title">Spring Social</Link>
-                    </div>
+                
                     <div className="app-options">
                         <nav className="app-nav">
                                 { this.props.authenticated ? (

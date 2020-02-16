@@ -24,24 +24,24 @@ spring:
                 - email
                 - profile
             facebook:
-              clientId: 121189305185277
-              clientSecret: 42ffe5aa7379e8326387e0fe16f34132
+              clientId: 481625092509779
+              clientSecret: 555df3addb300a65cd21068f5eadb878
               redirectUri: "{baseUrl}/oauth2/callback/{registrationId}"
               scope:
                 - email
                 - public_profile
             github:
-              clientId: d3e47fc2ddd966fa4352
-              clientSecret: 3bc0f6b8332f93076354c2a5bada2f5a05aea60d
+              clientId: ea3f551fa68a555faebf
+              clientSecret: 8e77b5a75416eaf5b0cb2ebb0905ae6722743583
               redirectUri: "{baseUrl}/oauth2/callback/{registrationId}"
               scope:
                 - user:email
                 - read:user
           provider:
             facebook:
-              authorizationUri: https://www.facebook.com/v3.0/dialog/oauth
-              tokenUri: https://graph.facebook.com/v3.0/oauth/access_token
-              userInfoUri: https://graph.facebook.com/v3.0/me?fields=id,first_name,middle_name,last_name,name,email,verified,is_verified,picture.width(250).height(250)
+              authorizationUri: https://www.facebook.com/v6.0/dialog/oauth
+              tokenUri: https://graph.facebook.com/v6.0/oauth/access_token
+              userInfoUri: https://graph.facebook.com/v6.0/me?fields=id,first_name,middle_name,last_name,name,email,verified,is_verified,picture.width(250).height(250)
 app:
   auth:
     tokenSecret: 926D96C90030DD58429D2751AC1BDBBC

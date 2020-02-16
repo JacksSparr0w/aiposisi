@@ -4,24 +4,39 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import CommonRequests from '../../requests/commonRequests';
 import { BrowserRouter, Link } from 'react-router-dom';
+import { deleteRoute } from '../../util/APIUtils';
+import { joinRoute } from '../../util/APIUtils';
+import { getCurrentUser } from '../../util/APIUtils';
 
 class RouteComponent extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {}
+        this.state = {
+            user: null,
+        }
+    }
+
+    componentDidMount() {
+        getCurrentUser()
+        .then (res => { this.setState({user: res})});
     }
 
     getOpportunities() {
-        const { update } = this.props
+        const { update } = this.props;
+        const { user } = this.state;
+
         if (this.props.join == true) {
             return ( <div>
 
                 <div className="d-flex justify-content-around mb-4">
                     <FontAwesomeIcon className="m-2" icon={faTrash} onClick={(e) => { 
-                        CommonRequests.deleteRoute(this.props.id);
+                        deleteRoute(this.props.id);
                         update();
                     }} />
-                    <Link type="button" to={`/routes/${this.props.id}/join`} className="btn btn-primary m-3">Join</Link>
+                    <a type="button" id="but" onClick={() => {
+                        joinRoute(this.props.id, user.id)
+                        
+                }} className="btn btn-primary m-3">Join</a>
                     <FontAwesomeIcon className="m-2" icon={faEdit} onClick={(e) => {this.props.history.push('/routes/' + this.props.id + '/update');  }}/>
                 </div>
                 </div>

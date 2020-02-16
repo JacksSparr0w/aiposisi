@@ -48,7 +48,7 @@ class TransportList extends React.Component {
       <div className="container row">
         {this.getArr(transports)}
 
-        <div onClick={() => { this.props.history.push('/transports/add'); }} className="card addCard">
+        <div onClick={(e) => { this.props.history.push('/transports/add'); }} className="card addCard">
           <FontAwesomeIcon icon={faPlus} size="8x" />
         </div>
 

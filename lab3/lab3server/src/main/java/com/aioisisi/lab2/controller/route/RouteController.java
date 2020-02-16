@@ -76,16 +76,17 @@ public class RouteController {
     }
 
     @Transactional
-    @PostMapping(value = "/{route_id}/join")
-    public User addUserToRoute(@RequestBody User user, @PathVariable(value = "route_id") Route route) {
-        User u = findUser(user);
+    @PostMapping(value = "/{route_id}/join/{user_id}")
+    public User addUserToRoute(@PathVariable(value = "route_id") Route route, @PathVariable Integer user_id) {
+        User u = userService.findById(user_id).get();
         if (route.isNotJoined(u) && route.addUser(u)) {
             log.info("user with id = " + u.getId() + " joined the route with id = " + route.getId());
             routeService.save(route);
+            return u;
         } else {
             log.info("maybe there no free seats or you join this also");
         }
-        return u;
+        return null;
     }
 
     private User findUser(User user) {

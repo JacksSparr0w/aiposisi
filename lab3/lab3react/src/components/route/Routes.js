@@ -57,20 +57,6 @@ class Routes extends React.Component {
     return (
       <div className="container row">
         {this.getArr(routes)}
-        {/* {routes.map(el => (
-                   <Route
-                    key={el.id}
-                    departureAddress={el.departureAddress.country + ' ' + el.departureAddress.city}
-                    arrivalAddress={el.arrivalAddress.country + ' ' + el.arrivalAddress.city}
-                    id={el.id}
-                    depDateTime={el.departureDateTime}
-                    arrDateTime={el.arrivalDateTime}
-                    freeSeats={el.freeSeats}
-                    transportName={el.transport.name}
-                    transportType={el.transport.type.description}
-                    join
-                  />
-                ))} */}
         <div onClick={(e) => { this.props.history.push('/routes/add'); }} className="card addCard">
           <FontAwesomeIcon icon={faPlus} size="8x" />
         </div>

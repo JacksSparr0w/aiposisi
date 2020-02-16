@@ -10,8 +10,6 @@ import Alert from 'react-s-alert';
 
 class Login extends Component {
     componentDidMount() {
-        // If the OAuth2 login encounters an error, the user is redirected to the /login page with an error.
-        // Here we display the error and then remove the error query parameter from the location.
         if(this.props.location.state && this.props.location.state.error) {
             setTimeout(() => {
                 Alert.error(this.props.location.state.error, {
@@ -37,7 +35,7 @@ class Login extends Component {
         return (
             <div className="login-container">
                 <div className="login-content">
-                    <h1 className="login-title">Login to SpringSocial</h1>
+                    <h1 className="login-title">Login</h1>
                     <SocialLogin />
                     <div className="or-separator">
                         <span className="or-text">OR</span>

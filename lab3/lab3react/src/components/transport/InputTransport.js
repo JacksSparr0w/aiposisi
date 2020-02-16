@@ -1,6 +1,10 @@
 import React from 'react';
 import CommonRequests from '../../requests/commonRequests';
-
+import { addTransport } from '../../util/APIUtils';
+import { updateTransport } from '../../util/APIUtils';
+import { getTypes } from '../../util/APIUtils';
+import { getType } from '../../util/APIUtils';
+import { getCurrentTransport } from '../../util/APIUtils';
 
 class InputTransport extends React.Component {
     constructor(props) {
@@ -15,10 +19,10 @@ class InputTransport extends React.Component {
     }
 
     componentDidMount() {
-        CommonRequests.getAllTypes()
+        getTypes()
             .then(res => {
                 if (this.props.match.params.id) {
-                    CommonRequests.getTransport(this.props.match.params.id)
+                    getCurrentTransport(this.props.match.params.id)
                         .then(result => {
                             this.setState({ types: res, transport: result, capacity: result.capacity, type: result.type, name: result.name })
                         })
@@ -28,7 +32,7 @@ class InputTransport extends React.Component {
 
 
     typeChange(event) {
-        CommonRequests.getType(event.target.value)
+        getType(event.target.value)
             .then(res => {
                 this.setState({ type: res })
             })
@@ -51,11 +55,22 @@ class InputTransport extends React.Component {
     }
 
     onclick() {
+        const action = {
+            type: this.state.type,
+            capacity: this.state.capacity,
+            name: this.state.name,        
+        }
         if (this.props.match.params.id != null) {
-            CommonRequests.updateTransport(this.props.match.params.id, this.state.type, this.state.capacity, this.state.name);
+            updateTransport(this.props.match.params.id, action);
 
-        } else CommonRequests.addTransport(this.state.type, this.state.capacity, this.state.name);
+        } else {
+        // CommonRequests.addTransport(this.state.type, this.state.capacity, this.state.name);
+        // event.preventDefault();   
 
+        // const transportRequest = Object.assign({}, this.state);
+
+        addTransport(action);
+        }
        this.props.history.push('/transports');
     }
 

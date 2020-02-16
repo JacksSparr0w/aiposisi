@@ -9,7 +9,6 @@ import InputTransport from './components/transport/InputTransport';
 import InputRoute from './components/route/InputRoute';
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 import AppHeader from './common/AppHeader';
-// import Home from '../home/Home';
 import Login from './user/login/Login';
 import Signup from './user/signup/Signup';
 import Profile from './user/profile/Profile';
@@ -80,19 +79,21 @@ class App extends React.Component {
           <div className="d-flex justify-content-around">
             <Link type="button" to='/routes' className="btn btn-primary m-3">Routes</Link>
             <Link type="button" to='/transports' className="btn btn-primary m-3">Transports</Link>
-            <Link type="button" to='/users/login' className="btn btn-primary m-3">My Routes</Link>
+            {/* <Link type="button" to='/users/login' className="btn btn-primary m-3">My Routes</Link> */}
           </div>
           <Switch>
           <Route path="/" exact component={Home} />
           <Route strict path="/routes" exact component={Routes} />
-          <Route strict path="/transports" exact component={TransportList} />
-          <Route path="/routes/add" exact component={InputRoute} />
-          <Route strict path="/routes/:id/join" exact component={LoginMy} />
-          <Route strict path="/transports/add" exact component={InputTransport} />
-          <Route path="/users/login" exact component={LoginMy} />
-          <Route path="/users/:login/watchRoutes" exact component={MyRoutes} />
-          <Route path="/transports/:id/update" exact component={InputTransport} />
-          <Route path="/routes/:id/update" exact component={InputRoute} />
+          <Route strict path="/transports" exact component={TransportList}/>
+          <PrivateRoute path="/routes/add" authenticated={this.state.authenticated}  exact component={InputRoute}> </PrivateRoute>
+          <PrivateRoute strict path="/routes/:id/join" authenticated={this.state.authenticated}  exact component={LoginMy} > </PrivateRoute>
+          {/* <Route path="/users/login" exact component={LoginMy} />
+          
+          <Route path="/users/:login/watchRoutes" exact component={MyRoutes} /> */}
+          <PrivateRoute path="/transports/add" authenticated={this.state.authenticated}  exact component={InputTransport}> </PrivateRoute>
+
+          <PrivateRoute path="/transports/:id/update" authenticated={this.state.authenticated} exact component={InputTransport} > </PrivateRoute>
+          <PrivateRoute path="/routes/:id/update" authenticated={this.state.authenticated} exact component={InputRoute} > </PrivateRoute>
             <PrivateRoute path="/profile" authenticated={this.state.authenticated} currentUser={this.state.currentUser}
               component={Profile}></PrivateRoute>
             <Route path="/login"
